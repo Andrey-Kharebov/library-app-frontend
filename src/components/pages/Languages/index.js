@@ -18,11 +18,9 @@ const LanguagesPage = () => {
   const Specified = tabs[tab] ? tabs[tab] : null
 
   return (
-    <PageWrapper title='Языки'>
-      <div className='languages-page'>
-        <SubTabs tab={ tab } setTab={ setTab } data={ languageTabs } />
-        { Specified }
-      </div>
+    <PageWrapper title='Языки' className='languages-page'>
+      <SubTabs tab={ tab } setTab={ setTab } data={ languageTabs } />
+      { Specified }
     </PageWrapper>
   )
 }

@@ -1,4 +1,6 @@
 .languages-page {
+  height: 100%;
+  
   @import '../../common/tabs/sub-tabs.scss';
 
   @import './words-tab.scss';
