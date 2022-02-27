@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
+import Navigation from './components/common/Navigation'
 import Main from './containers/Main'
 import Languages from './containers/Languages'
 
@@ -18,7 +19,10 @@ const Root = () => {
    
   return (
     <div className='app-wrapper'>
-      <Specified />
+      <Navigation />
+      <div className='app-wrapper__content'>
+        <Specified />
+      </div>
     </div>
   )
 }
