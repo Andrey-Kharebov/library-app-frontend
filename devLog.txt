@@ -1,5 +1,7 @@
 // Commits
 
+10. Language fix
+
 9. Changed PORT to 9001
 
 8. Added basic words-tab html structure

@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom' 
 
 const navList = [
-  { title: 'Иностранные языки', abbr: 'FL', url: 'languages' }
+  { title: 'Languages', abbr: 'LG', url: 'languages' }
 ]
 
 const Navigation = () => {

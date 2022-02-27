@@ -10,8 +10,8 @@ const WordsTab = () => {
       </div>
       <div className='words-side'>
         <div className='actions-block'>
-          <button>Создать набор</button>
-          <button>Сохранить</button>
+          <button>Create pack</button>
+          <button>Save</button>
         </div>
         <div className='words-list-block'>
           <textarea />
