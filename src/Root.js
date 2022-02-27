@@ -17,7 +17,7 @@ const Root = () => {
   const Specified = containersList[container] ? containersList[container] : () => <div>404</div>
    
   return (
-    <div>
+    <div className='app-wrapper'>
       <Specified />
     </div>
   )

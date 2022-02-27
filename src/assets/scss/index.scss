@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+html, body, #root, .app-wrapper {
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+body {
+  background: $bg-color_lvl1;
+}
+
+#root {
+  padding: 50px 20px 20px;
+}
+
+.app-wrapper {}

@@ -1,3 +1,7 @@
+3. Added basic styles
+  - npm i sass --save-dev
+  - added index.scss & variables.scss files and basic css settings  
+
 2. Basic containers and routing
   - npm i react-router-dom@latest
   - added Router.js & Root.js files 
