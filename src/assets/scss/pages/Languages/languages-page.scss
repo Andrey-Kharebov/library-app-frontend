@@ -1,1 +1,6 @@
-.languages-page {}
+.languages-page {
+  @import '../../common/tabs/sub-tabs.scss';
+
+  @import './words-tab.scss';
+  @import './texts-tab.scss';
+}

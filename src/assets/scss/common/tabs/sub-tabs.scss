@@ -1,0 +1,29 @@
+.sub-tabs {
+  display: flex;
+  
+  .sub-tabs__item {
+    box-sizing: border-box;
+    padding: 4px 20px 4px;
+    margin-right: 8px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    color: $inactive-text;
+    text-align: center;
+    font-size: 14px;
+    transition: .2s;
+
+    &:hover {
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+
+  .active {
+    background: $bg-color_lvl3;
+    color: #fff;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+}

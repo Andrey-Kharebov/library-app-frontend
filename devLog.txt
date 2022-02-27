@@ -1,5 +1,10 @@
 // Commits
 
+6. (V2) Added Basic languages page html
+  - added SectionWrapper
+  - added SubTabs component
+  - added WordsTab & TextsTab components
+
 5. Added Basic languages page html 
   - added PageWrapper
 
