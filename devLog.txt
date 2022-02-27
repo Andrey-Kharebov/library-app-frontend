@@ -1,5 +1,7 @@
 // Commits
 
+8. Added basic words-tab html structure
+
 7. height 100% pages & wrappers fixes
 
 6. (V2) Added Basic languages page html

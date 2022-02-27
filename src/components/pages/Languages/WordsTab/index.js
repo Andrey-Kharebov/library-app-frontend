@@ -5,7 +5,21 @@ import SectionWrapper from '../../../common/wrappers/SectionWrapper'
 const WordsTab = () => {
   return (
     <SectionWrapper className='words-tab'>
-      WordsTab
+      <div className='cards-side'>
+        cards-side
+      </div>
+      <div className='words-side'>
+        <div className='actions-block'>
+          <button>Создать набор</button>
+          <button>Сохранить</button>
+        </div>
+        <div className='words-list-block'>
+          <textarea />
+        </div>
+        <div className='words-suggestions-block'>
+          <textarea />
+        </div>
+      </div>
     </SectionWrapper>
   )
 }

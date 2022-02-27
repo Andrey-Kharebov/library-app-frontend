@@ -1,4 +1,54 @@
 .words-tab {
   height: 100%;
   border-top-left-radius: 0;
+  display: flex;
+
+  .cards-side {
+    border: 1px solid red;
+    width: 30%;
+    margin-right: 16px;
+  } 
+
+  .words-side {
+    border: 1px solid yellow;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .actions-block {
+      border: 1px solid green;
+      height: 5%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .words-list-block {
+      border: 1px solid green;
+      margin-top: 16px;
+      height: 75%;
+    }
+
+    .words-suggestions-block {
+      border: 1px solid green;
+      margin-top: 16px;
+      height: 20%;
+    }
+
+    .words-list-block,
+    .words-suggestions-block {
+      & > textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        background: $bg-color-lvl1;
+        color: $grey-text;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
 }
