@@ -1,5 +1,8 @@
 // Commits
 
+5. Added Basic languages page html 
+  - added PageWrapper
+
 4. Added Navigation component and css for it 
   - added background variables
 

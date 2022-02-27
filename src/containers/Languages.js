@@ -1,9 +1,19 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
-const Languages = () => {
-  return (
-    <div>Languages</div>
-  )
+import Languages from '../components/pages/Languages'
+
+const LanguagesContainer = () => {
+  const { secondParam } = useParams()
+
+  const pages = {
+    'index': Languages
+  }
+
+  const pageType = secondParam ? secondParam : 'index'
+  const Specified = pages[pageType] ? pages[pageType] : null
+
+  return <Specified />
 }
 
-export default Languages
+export default LanguagesContainer

@@ -25,3 +25,9 @@ body {
     padding-left: 90px;
   }
 }
+
+// wrappers 
+@import './common/wrappers/page-wrapper.scss';
+
+// pages 
+@import './pages/Languages/languages-page.scss';
