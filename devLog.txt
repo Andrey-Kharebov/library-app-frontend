@@ -1,3 +1,8 @@
+2. Basic containers and routing
+  - npm i react-router-dom@latest
+  - added Router.js & Root.js files 
+  - added Containers folder and Main.js & Languages.js files in it
+
 1. Initial commit
   - app prepared for further development
   - added Router.js
