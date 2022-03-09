@@ -1,5 +1,11 @@
 // Commits
 
+11. Added Redux
+  - npm i @reduxjs/toolkit react-redux
+  - added languages-slice.js & languages-thunks.js
+  - added ui-slice.js & ui-thunks.js
+  - added Loader.js & css for it
+
 10. Language fix
 
 9. Changed PORT to 9001

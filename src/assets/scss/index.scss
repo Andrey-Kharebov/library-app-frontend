@@ -19,8 +19,6 @@ body {
 .app-wrapper {
   position: relative;
 
-  @import './common/navigation.scss';
-
   .app-wrapper__content {
     height: 100%;
     padding-left: 90px;
@@ -33,3 +31,7 @@ body {
 
 // pages 
 @import './pages/Languages/languages-page.scss';
+
+// ui 
+@import './common/navigation.scss';
+@import './common/loader.scss';
