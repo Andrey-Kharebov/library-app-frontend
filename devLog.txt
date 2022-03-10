@@ -1,5 +1,7 @@
 // Commits
 
+12. Preparing for further developing 
+
 11. Added Redux
   - npm i @reduxjs/toolkit react-redux
   - added languages-slice.js & languages-thunks.js
