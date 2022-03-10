@@ -1,5 +1,8 @@
 // Commits
 
+13. Added Auth Container & Page
+  - added login / signup form & css for it 
+  
 12. Preparing for further developing 
 
 11. Added Redux

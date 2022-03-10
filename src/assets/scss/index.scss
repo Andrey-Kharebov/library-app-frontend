@@ -29,8 +29,10 @@ body {
 @import './common/wrappers/page-wrapper.scss';
 @import './common/wrappers/section-wrapper.scss';
 
-// pages 
+// pages
+@import './pages/Auth/auth-page.scss'; 
 @import './pages/Languages/languages-page.scss';
+
 
 // ui 
 @import './common/navigation.scss';
