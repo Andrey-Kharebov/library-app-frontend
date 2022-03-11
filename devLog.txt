@@ -1,4 +1,8 @@
+// What to do?
+  1. add validation for Auth form
+
 // Commits
+14. Added signup functionality + loading & error handling
 
 13. Added Auth Container & Page
   - added login / signup form & css for it 

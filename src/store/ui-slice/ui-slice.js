@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isLoading: false,
-  isError: false,
   error: null
 }
 
@@ -12,6 +11,9 @@ const uiSlice = createSlice({
   reducers: {
     setIsLoading(state, action) {
       state.isLoading = action.payload
+    },
+    setError(state, action) {
+      state.error = action.payload
     }
   }
 })
