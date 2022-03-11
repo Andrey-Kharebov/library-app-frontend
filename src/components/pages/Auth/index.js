@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { signUpRequest } from '../../../store/auth-slice/auth-thunks'
+import { loginRequest, signUpRequest } from '../../../store/auth-slice/auth-thunks'
 import { uiActions } from '../../../store/ui-slice/ui-slice'
 
 import PageWrapper from '../../common/wrappers/PageWrapper'
 import Loader from '../../common/Loader'
 
 const Auth = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  
+  const isLoading = useSelector(state => state.uiReducer.isLoading)
+  const error = useSelector(state => state.uiReducer.error)
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn)
+
   const initialState = { name: '', email: '', password: '' }
   const [formMode, setFormMode] = useState('login')
   const [formData, setFormData] = useState(initialState)
-  const isLoading = useSelector(state => state.uiReducer.isLoading)
-  const error = useSelector(state => state.uiReducer.error)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/', { replace: true })
+    }
+  }, [isLoggedIn, navigate])
 
   const formModeHandler = () => {
     if (formMode === 'login') {
@@ -38,15 +49,15 @@ const Auth = () => {
     event.preventDefault()
     
     if (formMode === 'login') {
-      console.log(formData.email, formData.password)
+      dispatch(loginRequest(formData))
     } else {
-      // console.log(formData.name, formData.email, formData.password)
       dispatch(signUpRequest(formData))
     }
 
     setFormData(initialState)
+    dispatch(uiActions.setError(null))
   }
-  
+
   if (isLoading) {
     return (
       <PageWrapper title='Authentication' className='auth-page'>

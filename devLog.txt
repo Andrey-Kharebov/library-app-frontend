@@ -2,6 +2,9 @@
   1. add validation for Auth form
 
 // Commits
+
+15. Added login functionality + redirects if isLoggedIn or not
+
 14. Added signup functionality + loading & error handling
 
 13. Added Auth Container & Page

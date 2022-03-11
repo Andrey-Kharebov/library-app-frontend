@@ -1,5 +1,6 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import Navigation from './components/common/Navigation'
 import Auth from './containers/Auth'
@@ -8,6 +9,15 @@ import Languages from './containers/Languages'
 
 const Root = () => {
   const { firstParam } = useParams()
+  const navigate = useNavigate()
+
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn)
+
+  useEffect(() => {
+    if (!isLoggedIn && firstParam !== 'auth') {
+      navigate('/auth', { replace: true })
+    }
+  }, [firstParam, isLoggedIn, navigate])
 
   const container = firstParam ? firstParam : 'main'
 
@@ -20,7 +30,7 @@ const Root = () => {
   const isAuth = firstParam === 'auth' ? true : false 
 
   const Specified = containersList[container] ? containersList[container] : () => <div>404</div>
-  
+
   if (isAuth) {
     return (
       <div className='app-wrapper'>
@@ -28,6 +38,7 @@ const Root = () => {
       </div>
     )
   }
+
   return (
     <div className='app-wrapper'>
       <Navigation />
