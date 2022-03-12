@@ -3,6 +3,8 @@
 
 // Commits
 
+17. Added checking for localstorage auth data (and saving auth data there)
+
 16. Added token storing after login & signup
 
 15. Added login functionality + redirects if isLoggedIn or not

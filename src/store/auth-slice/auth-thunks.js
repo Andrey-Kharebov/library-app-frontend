@@ -22,7 +22,7 @@ export const loginRequest = formData => {
       console.log(responseData)
 
       dispatch(uiActions.setIsLoading(false))
-      dispatch(authActions.login({ token: responseData.token }))
+      dispatch(authActions.login(responseData))
     } catch (err) {
       dispatch(uiActions.setIsLoading(false))
       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
@@ -49,7 +49,7 @@ export const signUpRequest = formData => {
       }
 
       dispatch(uiActions.setIsLoading(false))
-      dispatch(authActions.login({ token: responseData.token }))
+      dispatch(authActions.login(responseData))
     } catch (err) {
       dispatch(uiActions.setIsLoading(false))
       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))

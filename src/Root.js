@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions } from './store/auth-slice/auth-slice'
 
 import Navigation from './components/common/Navigation'
 import Auth from './containers/Auth'
@@ -10,11 +11,22 @@ import Languages from './containers/Languages'
 const Root = () => {
   const { firstParam } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn)
-
+  
   useEffect(() => {
-    if (!isLoggedIn && firstParam !== 'auth') {
+    const localStoredData = JSON.parse(localStorage.getItem('userData'))
+    
+    if (localStoredData && localStoredData.token) {
+      dispatch(authActions.login(localStoredData))
+    } else {
+      dispatch(authActions.setIsLoggedInToFalse()) // if nothing in LocStore => isLoggedIn = false
+    }
+  }, [dispatch])
+  
+  useEffect(() => {
+    if (isLoggedIn === false && firstParam !== 'auth') { // redirect to /auth only in case of isLoggedIn === false (not !isLoggedIn)
       navigate('/auth', { replace: true })
     }
   }, [firstParam, isLoggedIn, navigate])
@@ -26,6 +38,8 @@ const Root = () => {
     'main': Main,
     'languages': Languages
   }
+
+  console.log('isLoggedIn', isLoggedIn)
 
   const isAuth = firstParam === 'auth' ? true : false 
 
