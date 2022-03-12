@@ -3,6 +3,8 @@
 
 // Commits
 
+16. Added token storing after login & signup
+
 15. Added login functionality + redirects if isLoggedIn or not
 
 14. Added signup functionality + loading & error handling
