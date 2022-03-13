@@ -3,6 +3,8 @@
 
 // Commits
 
+18. Added token expiration & auto logout logic
+
 17. Added checking for localstorage auth data (and saving auth data there)
 
 16. Added token storing after login & signup
