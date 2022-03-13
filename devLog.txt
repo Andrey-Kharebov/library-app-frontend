@@ -3,6 +3,8 @@
 
 // Commits
 
+19. Added custom useAuth hook for clearing Root.js
+
 18. Added token expiration & auto logout logic
 
 17. Added checking for localstorage auth data (and saving auth data there)
