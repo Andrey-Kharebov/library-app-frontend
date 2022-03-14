@@ -1,5 +1,21 @@
 .languages-page {
   height: 100%;
+
+  .new-language-block {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-start;
+
+    & > button {
+      margin-left: 16px;
+      cursor: pointer;
+    }
+
+    .error-block {
+      margin-left: 16px;
+      color: red;
+    }
+  }
   
   @import '../../common/tabs/sub-tabs.scss';
 

@@ -3,6 +3,11 @@
 
 // Commits
 
+20. Added fetching and creating languages functionality
+  - added languages store (languages-slice.js & languages-thunks.js)
+  - added fetchLanguagesList & createLanguage thunks
+  - added userId to AuthSlice
+
 19. Added custom useAuth hook for clearing Root.js
 
 18. Added token expiration & auto logout logic

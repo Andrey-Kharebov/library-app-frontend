@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isLoggedIn: null,
+  userId: null,
   token: null,
   tokenExpirationDate: null
 }
@@ -12,6 +13,7 @@ const authSlice = createSlice({
   reducers: {
     login(state, action) { // action.payload{ userId, token, expiration }
       state.isLoggedIn = !!action.payload.token
+      state.userId = action.payload.userId
       state.token = action.payload.token
 
       // Udemy Mern 12 - 186
@@ -26,6 +28,7 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isLoggedIn = false
+      state.userId = null
       state.token = null
       state.tokenExpirationDate = null
     },

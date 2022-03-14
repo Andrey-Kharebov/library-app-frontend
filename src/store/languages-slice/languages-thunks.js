@@ -1,34 +1,65 @@
-// import { languagesActions } from './languages-slice'
-// import { uiActions } from '../ui-slice/ui-slice'
+import { languagesActions } from './languages-slice'
+import { uiActions } from '../ui-slice/ui-slice'
 
-// export const fetchLanguagesData = () => {
-//   return async dispatch => {
-//     dispatch(uiActions.setIsLoading(true))
-//     const fetchData = async () => {
-//       const response = await fetch('http://localhost:9000/api/languages/english')
+export const fetchLanguagesList = token => {
+  return async dispatch => {
+    try {
+      dispatch(uiActions.setIsLoading(true))
+      const response = await fetch('http://localhost:9000/api/languages', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
 
-//       if (!response.ok) {
-//         throw new Error('Could not fetch languages data!')
-//       }
+      const data = await response.json()
 
-//       const data = await response.json()
-
-//       return data
-//     }
-    
-//     try {
-//       const languagesData = await fetchData()
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not fetch languages list!')
+      }
       
-//       dispatch(languagesActions.setLanguagesData({
-//         words: languagesData.words,
-//         wordsList: languagesData.wordsList
-//       }))
-//     } catch (err) {
-//       console.log('Something went wrong!')
-//     }
-//     dispatch(uiActions.setIsLoading(false))
-//   }
-// }
+      const languagesList = data.languagesList
+      
+      dispatch(languagesActions.setLanguagesList(languagesList))
+      dispatch(uiActions.setIsLoading(false))
+    } catch (err) {
+      dispatch(uiActions.setIsLoading(false))
+      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+    }
+  }
+}
+
+export const createLanguage = (token, title) => {
+  return async dispatch => {
+    try {
+      dispatch(uiActions.setIsLoading(true))
+      const response = await fetch('http://localhost:9000/api/languages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          title: title
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not create a new language!')
+      }
+
+      const languagesList = data.languagesList
+      
+      dispatch(languagesActions.setLanguagesList(languagesList))
+      dispatch(uiActions.setIsLoading(false))
+    } catch (err) {
+      dispatch(uiActions.setIsLoading(false))
+      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+    }
+  }
+}
+
 
 // const DUMMY_WORDS = [
 //   { id: 'w1', word: 'to squeeze', translation: 'сжать, надавить', comment: 'you gotta put the squeeze on him' },

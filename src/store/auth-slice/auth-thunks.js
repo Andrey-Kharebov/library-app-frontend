@@ -16,8 +16,9 @@ export const loginRequest = formData => {
       const responseData = await response.json()
       
       if (!response.ok) {
-        throw new Error(responseData.message)
+        throw new Error(responseData.message || 'Could not log you in!')
       }
+      
 
       dispatch(uiActions.setIsLoading(false))
       dispatch(authActions.login({ userId: responseData.userId, token: responseData.token }))
@@ -43,7 +44,7 @@ export const signUpRequest = formData => {
       const responseData = await response.json()
       
       if (!response.ok) {
-        throw new Error(responseData.message)
+        throw new Error(responseData.message || 'Could not sign you up!')
       }
 
       dispatch(uiActions.setIsLoading(false))
