@@ -1,0 +1,36 @@
+.main-tabs {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  background: $bg-color_lvl1;
+  border: 2px solid $border-color_lvl3;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 14px;
+
+  .main-tabs__item {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px;
+    border-radius: 12px;
+    background-color: unset;
+    text-align: center;
+    transition: .2s;
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+    }
+  }
+
+  .active {
+    background: $bg-color_lvl2;
+
+    &:hover {
+      cursor: default;
+      opacity: 1;
+    }
+  }
+}

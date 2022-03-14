@@ -3,6 +3,8 @@
 
 // Commits
 
+21. Added MainTabs component
+
 20. Added fetching and creating languages functionality
   - added languages store (languages-slice.js & languages-thunks.js)
   - added fetchLanguagesList & createLanguage thunks
