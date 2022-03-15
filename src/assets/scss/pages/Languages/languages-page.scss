@@ -16,10 +16,17 @@
       color: red;
     }
   }
-  
-  @import '../../common/tabs/main-tabs.scss';
-  @import '../../common/tabs/sub-tabs.scss';
 
-  @import './words-tab.scss';
-  @import './texts-tab.scss';
+  @import '../../common/tabs/main-tabs.scss';
+
+  .language-content-section {
+    margin-top: 16px;
+    height: calc(100% - 180px);
+
+    @import '../../common/tabs/sub-tabs.scss';
+
+    @import './words-tab.scss';
+    @import './texts-tab.scss';
+  }
+  
 }

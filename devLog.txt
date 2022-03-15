@@ -3,6 +3,8 @@
 
 // Commits
 
+22. Components refactoring
+
 21. Added MainTabs component
 
 20. Added fetching and creating languages functionality
