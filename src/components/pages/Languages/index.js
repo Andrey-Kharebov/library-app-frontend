@@ -5,47 +5,48 @@ import { fetchLanguagesList } from '../../../store/languages-slice/languages-thu
 import PageWrapper from '../../common/wrappers/PageWrapper'
 import MainTabs from '../../common/tabs/MainTabs'
 import NewLanguageBlock from './NewLanguageBlock'
-import LanguageContentSection from './LanguageContentSection'
+// import LanguageContentSection from './LanguageContentSection'
+// import Loader from '../../common/Loader'
 
 const LanguagesPage = () => {
   const dispatch = useDispatch()
 
   const token = useSelector(state => state.authReducer.token)
-  const languagesList = useSelector(state => state.languagesReducer.languagesList)
+  const languagesTitlesList = useSelector(state => state.languagesReducer.languagesTitlesList)
   // const isLoading = useSelector(state => state.uiReducer.isLoading)
 
+  console.log(languagesTitlesList)
   const [tab, setTab] = useState(0)
 
   let mainTabs
 
   useEffect(() => {
-    if (token && !languagesList) {
+    if (token && !languagesTitlesList) {
       dispatch(fetchLanguagesList(token))
     }
-  }, [dispatch, token, languagesList])
+  }, [dispatch, token, languagesTitlesList])
 
-  if (languagesList && languagesList.length > 0) {
+  if (languagesTitlesList && languagesTitlesList.length > 0) {
     mainTabs = {
-      items: languagesList.map((i, idx) => {
-        return { name: i, val: idx === 0 ? 'selected' : 'non-selected'}
+      items: languagesTitlesList.map((i, idx) => {
+        return { name: i.title, val: idx === 0 ? 'selected' : 'non-selected' }
       }),
       onTabClick: tab => setTab(tab),
       tab: tab
     }
   }
 
-  const currentMainTab = mainTabs && languagesList[tab]
-
+  const currentMainTab = mainTabs && languagesTitlesList[tab]
+  
   return (
     <PageWrapper title='Languages' className='languages-page'>
       <NewLanguageBlock />
-      
-      { languagesList && languagesList.length === 0 ? (
+      { languagesTitlesList && languagesTitlesList.length === 0 ? (
         <p>There are no languages here yet. Create your first one!</p>
       ) : (
         <>
           { mainTabs && <MainTabs { ...mainTabs } /> }
-          { currentMainTab && <LanguageContentSection language={ currentMainTab } />}
+          {/* { currentMainTab && <LanguageContentSection language={ currentMainTab } />} */}
         </>
       ) }      
     </PageWrapper>

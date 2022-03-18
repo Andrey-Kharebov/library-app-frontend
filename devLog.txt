@@ -3,6 +3,8 @@
 
 // Commits
 
+23. Added MainTabs for languages functionality (auto updating) and edited create and fetch languages functions
+
 22. Components refactoring
 
 21. Added MainTabs component

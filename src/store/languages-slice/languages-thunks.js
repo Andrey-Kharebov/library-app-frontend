@@ -17,9 +17,9 @@ export const fetchLanguagesList = token => {
         throw new Error(data.message || 'Could not fetch languages list!')
       }
       
-      const languagesList = data.languagesList
+      const languagesData = data.languagesData
       
-      dispatch(languagesActions.setLanguagesList(languagesList))
+      dispatch(languagesActions.setLanguagesList(languagesData))
       dispatch(uiActions.setIsLoading(false))
     } catch (err) {
       dispatch(uiActions.setIsLoading(false))
@@ -49,9 +49,9 @@ export const createLanguage = (token, title) => {
         throw new Error(data.message || 'Could not create a new language!')
       }
 
-      const languagesList = data.languagesList
+      const languagesData = data.newLanguageData
       
-      dispatch(languagesActions.setLanguagesList(languagesList))
+      dispatch(languagesActions.setCreatedLanguage(languagesData))
       dispatch(uiActions.setIsLoading(false))
     } catch (err) {
       dispatch(uiActions.setIsLoading(false))
