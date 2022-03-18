@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialState = {
   languagesTitlesList: null,
@@ -26,6 +26,18 @@ const languagesSlice = createSlice({
         state.languagesTitlesList.push(action.payload.newLanguageTitle)
         state.languagesObjs.push(action.payload.newLanguageObj)
       }
+    },
+    setLanguageObj(state, action) {
+      const languageObj = action.payload
+      languageObj.wordsList = { changed: false, wordsList: languageObj.wordsList }
+      const alreadyFetchedLanguageObj = state.languagesObjs.find(l => l._id === languageObj._id)
+      if (alreadyFetchedLanguageObj) {
+        console.log('bange')
+      } else {
+        state.languagesObjs.push(languageObj)
+      }
+      // console.log(languageObj)
+      // console.log(current(state.languagesObjs))
     }
   }
 })

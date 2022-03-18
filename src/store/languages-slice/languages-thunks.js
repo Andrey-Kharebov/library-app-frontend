@@ -60,6 +60,33 @@ export const createLanguage = (token, title) => {
   }
 }
 
+export const fetchLanguagesById = (token, languageId) => {
+  return async dispatch => {
+    try {
+      dispatch(uiActions.setIsLoading(true))
+      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }`, {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not fetch language!')
+      }
+      
+      const languageData = data.languageObj
+
+      
+      dispatch(languagesActions.setLanguageObj(languageData))
+      dispatch(uiActions.setIsLoading(false))
+    } catch (err) {
+      dispatch(uiActions.setIsLoading(false))
+      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+    }
+  }
+}
 
 // const DUMMY_WORDS = [
 //   { id: 'w1', word: 'to squeeze', translation: 'сжать, надавить', comment: 'you gotta put the squeeze on him' },

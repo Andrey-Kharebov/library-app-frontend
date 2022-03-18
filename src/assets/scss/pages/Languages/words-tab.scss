@@ -10,27 +10,23 @@
   } 
 
   .words-side {
-    border: 1px solid yellow;
     width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     .actions-block {
-      border: 1px solid green;
       height: 5%;
       display: flex;
       justify-content: space-between;
     }
 
     .words-list-block {
-      border: 1px solid green;
       margin-top: 16px;
       height: 75%;
     }
 
     .words-suggestions-block {
-      border: 1px solid green;
       margin-top: 16px;
       height: 20%;
     }

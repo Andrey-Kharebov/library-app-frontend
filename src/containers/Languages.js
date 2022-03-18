@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import Languages from '../components/pages/Languages'
+import Languages from '../components/pages/Languages/Languages'
 
 const LanguagesContainer = () => {
   const { secondParam } = useParams()

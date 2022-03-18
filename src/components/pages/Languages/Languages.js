@@ -5,17 +5,14 @@ import { fetchLanguagesList } from '../../../store/languages-slice/languages-thu
 import PageWrapper from '../../common/wrappers/PageWrapper'
 import MainTabs from '../../common/tabs/MainTabs'
 import NewLanguageBlock from './NewLanguageBlock'
-// import LanguageContentSection from './LanguageContentSection'
-// import Loader from '../../common/Loader'
+import LanguageContentSection from './LanguageContentSection/LanguageContentSection'
 
 const LanguagesPage = () => {
   const dispatch = useDispatch()
 
   const token = useSelector(state => state.authReducer.token)
   const languagesTitlesList = useSelector(state => state.languagesReducer.languagesTitlesList)
-  // const isLoading = useSelector(state => state.uiReducer.isLoading)
 
-  console.log(languagesTitlesList)
   const [tab, setTab] = useState(0)
 
   let mainTabs
@@ -46,7 +43,7 @@ const LanguagesPage = () => {
       ) : (
         <>
           { mainTabs && <MainTabs { ...mainTabs } /> }
-          {/* { currentMainTab && <LanguageContentSection language={ currentMainTab } />} */}
+          { currentMainTab && <LanguageContentSection languageTitleObj={ currentMainTab } />}
         </>
       ) }      
     </PageWrapper>
