@@ -4,11 +4,11 @@ import ActionsBlock from './ActionsBlock'
 import WordsListBlock from './WordsListBlock'
 import WordsSuggestionsBlock from './WordsSuggestionsBlock'
 
-const WordsSide = () => {
+const WordsSide = ({ languageTitleObj }) => {
   return (
     <div className='words-side'>
-      <ActionsBlock />
-      <WordsListBlock />
+      <ActionsBlock languageTitleObj={ languageTitleObj } />
+      <WordsListBlock languageTitleObj={ languageTitleObj } />
       <WordsSuggestionsBlock />
     </div>
   )

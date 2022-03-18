@@ -2,6 +2,8 @@
   1. add validation for Auth form
 
 // Commits
+25. Added save wordsList functionality
+
 24. Added languages components separation and fetching languageObjById functionality (useEffect & thunk & action)
 
 23. Added MainTabs for languages functionality (auto updating) and edited create and fetch languages functions

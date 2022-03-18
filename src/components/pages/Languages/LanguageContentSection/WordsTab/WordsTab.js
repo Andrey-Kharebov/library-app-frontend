@@ -4,11 +4,11 @@ import SectionWrapper from '../../../../common/wrappers/SectionWrapper'
 import CardsSide from './CardsSide/CardsSide'
 import WordsSide from './WordsSide/WordsSide'
 
-const WordsTab = () => {
+const WordsTab = ({ languageTitleObj }) => {
   return (
     <SectionWrapper className='words-tab'>
       <CardsSide />
-      <WordsSide />
+      <WordsSide languageTitleObj={ languageTitleObj } />
     </SectionWrapper>
   )
 }
