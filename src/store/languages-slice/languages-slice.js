@@ -19,12 +19,15 @@ const languagesSlice = createSlice({
       }
     },
     setCreatedLanguage(state, action) {
+      const newLanguageObj = action.payload.newLanguageObj
+      newLanguageObj.wordsList = { changed: false, value: newLanguageObj.wordsList }
+      
       if (!state.languagesTitlesList) {
         state.languagesTitlesList = [action.payload.newLanguageTitle]
-        state.languagesObjs = [action.payload.newLanguageObj]
+        state.languagesObjs = [newLanguageObj]
       } else {
         state.languagesTitlesList.push(action.payload.newLanguageTitle)
-        state.languagesObjs.push(action.payload.newLanguageObj)
+        state.languagesObjs.push(newLanguageObj)
       }
     },
     setLanguageObj(state, action) {

@@ -10,6 +10,8 @@ const WordsListBlock = ({ languageTitleObj }) => {
     dispatch(languagesActions.changeWordsList({ languageObjId: languageObj._id, value: event.target.value }))
   }
 
+  console.log(languageTitleObj)
+  console.log(languageObj)
   return (
     <div className='words-list-block'>
       <textarea value={ languageObj && languageObj.wordsList.value } onChange={ changeWordsListHandler } />

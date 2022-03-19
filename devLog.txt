@@ -2,6 +2,9 @@
   1. add validation for Auth form
 
 // Commits
+26. setCreatedLanguage problem fixed 
+  - proper wordsList setting
+
 25. Added save wordsList functionality
 
 24. Added languages components separation and fetching languageObjById functionality (useEffect & thunk & action)
