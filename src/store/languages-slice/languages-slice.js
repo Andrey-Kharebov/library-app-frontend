@@ -32,15 +32,15 @@ const languagesSlice = createSlice({
     },
     setLanguageObj(state, action) {
       const languageObj = action.payload
-      let alreadyFetchedLanguageObj = !!state.languagesObjs.find(l => l._id === languageObj._id)
-
-      if (alreadyFetchedLanguageObj) {
-        state.languagesObjs.find(l => l._id === languageObj._id).wordsList = { changed: false, value: languageObj.wordsList }
-      } else {
-        languageObj.wordsList = { changed: false, value: languageObj.wordsList }
-        state.languagesObjs.push(languageObj)
-      }
+      languageObj.wordsList = { changed: false, value: languageObj.wordsList }
+      state.languagesObjs.push(languageObj)  
     },
+    setWordsList(state, action) {
+      let fetchedLanguage = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      fetchedLanguage.wordsList = { changed: false, value: action.payload.wordsList }
+    },
+
+    
     changeWordsList(state, action) {
       const languageObj = state.languagesObjs.find(lo => lo._id === action.payload.languageObjId)
       languageObj.wordsList.changed = true 

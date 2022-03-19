@@ -109,9 +109,9 @@ export const saveWordsList = (token, languageId, wordsList) => {
         throw new Error(data.message || 'Could not create a new language!')
       }
 
-      const languageData = data.languageObj
+      const languageData = data.languageData // { languageTitle{ _id, title }, wordsList }
       
-      dispatch(languagesActions.setLanguageObj(languageData))
+      dispatch(languagesActions.setWordsList(languageData))
       dispatch(uiActions.setIsLoading(false))
     } catch (err) {
       dispatch(uiActions.setIsLoading(false))
