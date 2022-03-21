@@ -2,6 +2,8 @@
   1. add validation for Auth form
 
 // Commits
+28. Added create & show wordsPack func.
+
 27. Added setWordsList func.
 
 26. setCreatedLanguage problem fixed 

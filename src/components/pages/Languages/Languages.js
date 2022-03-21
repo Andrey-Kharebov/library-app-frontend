@@ -38,7 +38,7 @@ const LanguagesPage = () => {
   return (
     <PageWrapper title='Languages' className='languages-page'>
       <NewLanguageBlock />
-      { languagesTitlesList && languagesTitlesList.length === 0 ? (
+      { !languagesTitlesList || languagesTitlesList.length === 0 ? (
         <p>There are no languages here yet. Create your first one!</p>
       ) : (
         <>

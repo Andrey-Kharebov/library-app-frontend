@@ -4,9 +4,50 @@
   display: flex;
 
   .cards-side {
-    border: 1px solid red;
     width: 30%;
     margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .word-card-block {
+    }
+
+    .words-packs-block {
+      & > span {
+        font-size: 15px;
+        margin-bottom: 16px;
+        display: block;
+        color: $grey-text;
+      }
+
+      ul {
+        background: $bg-color_lvl1;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-height: 300px;
+        overflow: scroll;
+
+        li {
+          border: 1px solid transparent;
+          color: $grey-text;
+          padding: 6px;
+          cursor: pointer;
+          font-size: 12px;
+
+          &:hover {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+          }
+        }
+
+        .active {
+          color: #fff;
+          border-bottom: 1px solid #fff;
+        }
+      }
+    }
   } 
 
   .words-side {

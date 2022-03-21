@@ -7,7 +7,7 @@ import WordsSide from './WordsSide/WordsSide'
 const WordsTab = ({ languageTitleObj }) => {
   return (
     <SectionWrapper className='words-tab'>
-      <CardsSide />
+      <CardsSide languageTitleObj={ languageTitleObj } />
       <WordsSide languageTitleObj={ languageTitleObj } />
     </SectionWrapper>
   )

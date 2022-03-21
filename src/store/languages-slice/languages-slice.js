@@ -13,6 +13,12 @@ const languagesSlice = createSlice({
       if (action.payload.languagesObjs.length > 0) {
         const firstLanguageObj = action.payload.languagesObjs[0]
         firstLanguageObj.wordsList = { changed: false, value: firstLanguageObj.wordsList }
+        console.log(firstLanguageObj.wordsPacks)
+        if (firstLanguageObj.wordsPacks.length > 0) {
+          firstLanguageObj.wordsPacks = firstLanguageObj.wordsPacks.map((wp, idx) => {
+            return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
+          })
+        }
         
         state.languagesTitlesList = action.payload.languagesTitlesList
         state.languagesObjs = [firstLanguageObj]
@@ -33,11 +39,24 @@ const languagesSlice = createSlice({
     setLanguageObj(state, action) {
       const languageObj = action.payload
       languageObj.wordsList = { changed: false, value: languageObj.wordsList }
+      if (languageObj.wordsPacks.length > 0) {
+        languageObj.wordsPacks = languageObj.wordsPacks.map((wp, idx) => {
+          return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
+        })
+      }
+
       state.languagesObjs.push(languageObj)  
     },
     setWordsList(state, action) {
-      let fetchedLanguage = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
-      fetchedLanguage.wordsList = { changed: false, value: action.payload.wordsList }
+      console.log(action.payload)
+      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      languageObj.wordsList = { changed: false, value: action.payload.wordsList }
+    },
+    setCreatedWordsPack(state, action) {
+      console.log(action.payload)
+      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      languageObj.wordsPacks.push(action.payload.wordsPack)
+      console.log(current(languageObj))
     },
 
     
@@ -45,6 +64,13 @@ const languagesSlice = createSlice({
       const languageObj = state.languagesObjs.find(lo => lo._id === action.payload.languageObjId)
       languageObj.wordsList.changed = true 
       languageObj.wordsList.value = action.payload.value
+    },
+    changeActiveWordsPack(state, action) {
+      const wordsPackId = action.payload.wordsPackId
+      const languageObj = state.languagesObjs.find(l => l._id === action.payload.languageObjId)
+      languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
+        return wp._id === wordsPackId ? { ...wp, active: true, } : { ...wp, active: false }
+      })
     }
   }
 })
