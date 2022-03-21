@@ -1,11 +1,12 @@
 import React from 'react'
+
+import WordCardBlock from './WordCardBlock/WordCardBlock'
 import WordsPacksBlock from './WordsPacksBlock'
-const CardsSide = ({ languageTitleObj }) => {
+
+const CardsSide = ({ languageTitleObj }) => {  
   return (
     <div className='cards-side'>
-      <div className='word-card-block'>
-        word-card-block
-      </div>
+      <WordCardBlock languageTitleObj={ languageTitleObj } />
       <WordsPacksBlock languageTitleObj={ languageTitleObj } />
     </div>
   )

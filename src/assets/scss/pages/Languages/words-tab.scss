@@ -11,6 +11,49 @@
     justify-content: space-between;
     
     .word-card-block {
+      .word-card {
+        box-sizing: border-box;
+        padding: 16px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > span {
+          margin-top: 5px;
+          color: $grey-text;
+          text-align: center;
+        }
+
+        &:hover {
+          border: 1px solid $border-color_lvl4;
+          cursor: pointer;
+        }
+      }
+
+      .actions-block {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-evenly;
+
+        & > button {
+          width: 150px;
+          height: 30px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .levels-block {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-evenly;
+      }
     }
 
     .words-packs-block {

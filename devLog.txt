@@ -2,6 +2,8 @@
   1. add validation for Auth form
 
 // Commits
+29. Added WordCardBlock components with css for them + first wordsPack setting active fix
+
 28. Added create & show wordsPack func.
 
 27. Added setWordsList func.
