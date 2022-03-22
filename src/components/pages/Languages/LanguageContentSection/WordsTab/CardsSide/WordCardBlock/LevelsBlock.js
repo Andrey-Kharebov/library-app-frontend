@@ -1,12 +1,13 @@
 import React from 'react'
 
-const LevelsBlock = ({ languageTitleObj, levels, currentLevel, setCurrentLevel, words, currentWordId }) => {
+const LevelsBlock = ({ languageTitleObj, levels, currentLevel, setCurrentLevel, words, currentWord }) => {
   const changeLevelHandler = (l, levelWordsArrLength) => {
-    if (levelWordsArrLength === 0) return 
+    const lastLevelWordsArrLength = words.filter(i => i.level === 5).length
+    if (levelWordsArrLength === 0 || (l === 5 && lastLevelWordsArrLength < 20)) return 
     setCurrentLevel(l)
   }
 
-  if (!currentWordId) return null
+  if (!currentWord) return null
   return (
     <div className='levels-block'>
       { levels.map(l => {
@@ -14,7 +15,7 @@ const LevelsBlock = ({ languageTitleObj, levels, currentLevel, setCurrentLevel, 
         return (
           <span 
             key={ l } 
-            className={ `level ${ currentLevel === l && 'active' }` }
+            className={ `level ${ currentLevel === l && 'active' } ${ l === 5 && 'last-level'}` }
             onClick={ () => changeLevelHandler(l, levelWordsArrLength) }
           >
             { levelWordsArrLength }

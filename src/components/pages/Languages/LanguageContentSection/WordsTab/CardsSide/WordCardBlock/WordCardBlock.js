@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import WordCard from './WordCard'
-import ActionsBlocks from './ActionsBlocks'
+import ActionsBlock from './ActionsBlock'
 import LevelsBlock from './LevelsBlock'
 
 import currentLevelSetter from '../../../../../../../helpers/currentLevelSetter'
@@ -14,10 +14,11 @@ const WordCardBlock = ({ languageTitleObj }) => {
   const [currentLevel, setCurrentLevel] = useState(wordsPack && currentLevelSetter(wordsPack.words))
   const currentWord = wordsPack && currentLevel && wordsPack.words.find(w => w.level === currentLevel)
   const levelWordsArrLength = wordsPack && currentLevel && wordsPack.words.filter(i => i.level === currentLevel).length
-
+  
+  const { _id: wordsPackId, words: wordsPackWords  } = wordsPack
   useEffect(() => { //  при изменении active wordsPack
-    setCurrentLevel(wordsPack && currentLevelSetter(wordsPack.words))
-  }, [wordsPack])
+    setCurrentLevel(wordsPackId && currentLevelSetter(wordsPackWords))
+  }, [wordsPackId, wordsPackWords])
 
   useEffect(() => { // если на тек. уровне больше нет слов
     if (levelWordsArrLength === 0) {
@@ -29,8 +30,8 @@ const WordCardBlock = ({ languageTitleObj }) => {
   return (
     <div className='word-card-block'>
       <WordCard languageTitleObj={ languageTitleObj } currentWord={ currentWord } />
-      <ActionsBlocks languageTitleObj={ languageTitleObj } wordsPackId={ wordsPack && wordsPack._id } currentWordId={ currentWord && currentWord._id } />
-      <LevelsBlock languageTitleObj={ languageTitleObj } levels={ levels } currentLevel={ currentLevel } setCurrentLevel={ setCurrentLevel } words={ wordsPack.words } currentWordId={ currentWord && currentWord._id } />
+      <ActionsBlock languageTitleObj={ languageTitleObj } wordsPackId={ wordsPack && wordsPack._id } currentWord={ currentWord && currentWord } />
+      <LevelsBlock languageTitleObj={ languageTitleObj } levels={ levels } currentLevel={ currentLevel } setCurrentLevel={ setCurrentLevel } words={ wordsPack.words } currentWord={ currentWord && currentWord } />
     </div>
   )
 }

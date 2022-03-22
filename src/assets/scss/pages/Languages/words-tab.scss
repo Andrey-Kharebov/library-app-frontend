@@ -68,6 +68,16 @@
           color: #fff;
           font-weight: 700;
         }
+
+        .last-level {
+          color: red;
+          font-weight: 700;
+
+          &:hover {
+            color: red;
+            cursor: default;
+          }
+        }
       }
     }
 

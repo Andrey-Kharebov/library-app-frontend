@@ -2,6 +2,13 @@
   1. add validation for Auth form
 
 // Commits
+31. Continuation if the WordCardBlock functionality
+  - fix the problem with resetting level when pack changed
+  - if word level === 1 button levelDown is disabled
+  - last level color red 
+  - if last level.length < 20 last level button is disabled 
+
+
 30. Added basic WordCardBlock functionality
   - added changing cardSide func.
   - added wordLevelUp & down thunks

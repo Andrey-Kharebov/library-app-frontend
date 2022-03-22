@@ -12,14 +12,15 @@ const WordCard = ({ languageTitleObj, currentWord }) => {
   }
 
   if ( !currentWord ) return null 
+ 
   return (
     <div className='word-card' onClick={ cardSideHandler }>
       { frontSide
         ? (
-          <span>{ currentWord.word }</span>
+          currentWord.level === 5 ? <span>{ currentWord.translation }</span> : <span>{ currentWord.word }</span>
         ) : (
           <>
-            <span>{ currentWord.translation }</span> 
+            { currentWord.level === 5 ? <span>{ currentWord.word }</span> : <span>{ currentWord.translation }</span> }
             <span>{ currentWord.example }</span> 
           </>
         ) }
