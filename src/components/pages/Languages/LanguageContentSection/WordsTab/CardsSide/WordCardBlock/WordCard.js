@@ -1,19 +1,29 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 
-const WordCard = ({ languageTitleObj }) => {
-  const languageObj = useSelector(state => state.languagesReducer.languagesObjs).find(lo => lo._id === languageTitleObj._id)
-  let wordsPack
-  if (languageObj && languageObj.wordsPacks) {
-    wordsPack = languageObj.wordsPacks.find(wp => wp.active) 
+const WordCard = ({ languageTitleObj, currentWord }) => {
+  const [frontSide, setFrontSide] = useState(true)
+
+  useEffect(() => {
+    setFrontSide(true)
+  }, [currentWord])
+
+  const cardSideHandler = () => {
+    setFrontSide(a => !a)
   }
 
-  if ( !wordsPack ) return null 
-
+  if ( !currentWord ) return null 
   return (
-    <div className='word-card'>
-      <span>{ wordsPack.words[0].translation }</span> 
-      <span>{ wordsPack.words[0].example }</span>
+    <div className='word-card' onClick={ cardSideHandler }>
+      { frontSide
+        ? (
+          <span>{ currentWord.word }</span>
+        ) : (
+          <>
+            <span>{ currentWord.translation }</span> 
+            <span>{ currentWord.example }</span> 
+          </>
+        ) }
+    
     </div>
   )
 }

@@ -153,6 +153,67 @@ export const createWordsPack = (token, languageId, wordsList) => {
   }
 }
 
+export const wordLevelUp = (token, wordsPackId, wordId) => {
+  return async dispatch => {
+    try {
+      dispatch(uiActions.setIsLoading(true))
+      const response = await fetch(`http://localhost:9000/api/languages/${ wordsPackId }/wordLevelUp`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          wordId
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not create a new language!')
+      }
+
+      const languageData = data.languageData // { wordsPack }
+      dispatch(languagesActions.setWordsPack({ wordsPack: languageData.wordsPack }))
+      dispatch(uiActions.setIsLoading(false))
+    } catch (err) {
+      dispatch(uiActions.setIsLoading(false))
+      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+    }
+  }
+}
+
+export const wordLevelDown = (token, wordsPackId, wordId) => {
+  return async dispatch => {
+    try {
+      dispatch(uiActions.setIsLoading(true))
+      const response = await fetch(`http://localhost:9000/api/languages/${ wordsPackId }/wordLevelDown`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          wordId
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not create a new language!')
+      }
+
+      const languageData = data.languageData // { wordsPack }
+      dispatch(languagesActions.setWordsPack({ wordsPack: languageData.wordsPack }))
+      dispatch(uiActions.setIsLoading(false))
+    } catch (err) {
+      dispatch(uiActions.setIsLoading(false))
+      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+    }
+  }
+}
 
 // const DUMMY_WORDS = [
 //   { id: 'w1', word: 'to squeeze', translation: 'сжать, надавить // you gotta put the squeeze on him 

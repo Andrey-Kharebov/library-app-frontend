@@ -2,6 +2,12 @@
   1. add validation for Auth form
 
 // Commits
+30. Added basic WordCardBlock functionality
+  - added changing cardSide func.
+  - added wordLevelUp & down thunks
+  - added currentLevelSetter helper
+  - added changing level func.
+
 29. Added WordCardBlock components with css for them + first wordsPack setting active fix
 
 28. Added create & show wordsPack func.

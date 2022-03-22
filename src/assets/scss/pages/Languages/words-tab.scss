@@ -53,6 +53,21 @@
         margin-top: 16px;
         display: flex;
         justify-content: space-evenly;
+
+        .level {
+          color: $grey-text;
+          font-size: 14px;
+          cursor: pointer;
+
+          &:hover {
+            color: #fff
+          }
+        }
+
+        .active {
+          color: #fff;
+          font-weight: 700;
+        }
       }
     }
 
