@@ -82,6 +82,8 @@
     }
 
     .words-packs-block {
+      z-index: 11;
+
       & > span {
         font-size: 15px;
         margin-bottom: 16px;
@@ -101,12 +103,12 @@
           border: 1px solid transparent;
           color: $grey-text;
           padding: 6px;
-          cursor: pointer;
           font-size: 12px;
-
+          
           &:hover {
             color: #fff;
             border-bottom: 1px solid #fff;
+            cursor: pointer;
           }
         }
 

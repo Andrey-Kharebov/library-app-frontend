@@ -1,7 +1,12 @@
 // What to do?
   1. add validation for Auth form
+  2. разделить css на подкомпоненты 
+  3. сделать common textarea 
+  4. сделать common модалку
 
 // Commits
+32. Added basic finishedPack modal component & css for it
+
 31. Continuation if the WordCardBlock functionality
   - fix the problem with resetting level when pack changed
   - if word level === 1 button levelDown is disabled

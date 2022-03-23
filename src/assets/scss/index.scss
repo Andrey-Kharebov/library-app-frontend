@@ -33,7 +33,9 @@ body {
 @import './pages/Auth/auth-page.scss'; 
 @import './pages/Languages/languages-page.scss';
 
-
 // ui 
 @import './common/navigation.scss';
 @import './common/loader.scss';
+
+// modals
+@import './common/modals/finished-pack-modal.scss'

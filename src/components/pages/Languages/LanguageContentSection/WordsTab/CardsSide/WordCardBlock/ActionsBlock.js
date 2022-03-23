@@ -18,7 +18,7 @@ const ActionsBlock = ({ languageTitleObj, wordsPackId, currentWord }) => {
   return (
     <div className='actions-block'>
       <button onClick={ wordLevelDownHandler } disabled={ currentWord.level === 1 }>Down</button>
-      <button onClick={ wordLevelUpHandler } disabled={ currentWord.level === 5 }>Up</button>
+      <button onClick={ wordLevelUpHandler }>Up</button>
     </div>
   )
 }
