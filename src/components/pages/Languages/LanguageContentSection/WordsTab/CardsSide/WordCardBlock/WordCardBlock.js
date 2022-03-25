@@ -40,7 +40,7 @@ const WordCardBlock = ({ languageTitleObj }) => {
       <WordCard languageTitleObj={ languageTitleObj } currentWord={ currentWord } />
       <ActionsBlock languageTitleObj={ languageTitleObj } wordsPackId={ wordsPack && wordsPack._id } currentWord={ currentWord && currentWord } />
       <LevelsBlock languageTitleObj={ languageTitleObj } levels={ levels } currentLevel={ currentLevel } setCurrentLevel={ setCurrentLevel } words={ wordsPack.words } currentWord={ currentWord && currentWord } />
-      { currentLevel === 6 && levelWordsArrLength === 20 && <FinishedPackModal words={ wordsPack.words } />}
+      { currentLevel === 6 && levelWordsArrLength === 20 && <FinishedPackModal wordsPack={ wordsPack } />}
     </div>
   )
 }

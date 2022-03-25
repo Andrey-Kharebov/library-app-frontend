@@ -5,6 +5,9 @@
   4. сделать common модалку
 
 // Commits
+33. Completed finishedPack func.
+  - added finishedPack action & thunk
+
 32. Added basic finishedPack modal component & css for it
 
 31. Continuation if the WordCardBlock functionality
