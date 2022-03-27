@@ -143,8 +143,7 @@ export const createWordsPack = (token, languageId, wordsList) => {
 
       const languageData = data.languageData // { languageTitle{ _id, title }, wordsList, wordsPack }
       console.log(languageData.wordsPack)
-      dispatch(languagesActions.setWordsList({ languageTitle: languageData.languageTitle, wordsList: languageData.wordsList }))
-      dispatch(languagesActions.setCreatedWordsPack({ languageTitle: languageData.languageTitle, wordsPack: languageData.wordsPack }))
+      dispatch(languagesActions.setCreatedWordsPack(languageData))
       dispatch(uiActions.setIsLoading(false))
     } catch (err) {
       dispatch(uiActions.setIsLoading(false))

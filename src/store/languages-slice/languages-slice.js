@@ -47,13 +47,14 @@ const languagesSlice = createSlice({
       state.languagesObjs.push(languageObj)  
     },
     setWordsList(state, action) {
-      console.log(action.payload)
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.wordsList = { changed: false, value: action.payload.wordsList }
       languageObj.suggestedWords = []
     },
     setCreatedWordsPack(state, action) {
+      console.log(action.payload)
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      languageObj.wordsList = { changed: false, value: action.payload.wordsList }
       if (languageObj.wordsPacks.length === 0) {
         languageObj.wordsPacks.push({...action.payload.wordsPack, active: true })
       } else {
@@ -62,6 +63,7 @@ const languagesSlice = createSlice({
     },
     setWordsPack(state, action) {
       const languageObj = state.languagesObjs.find(l => l._id === action.payload.wordsPack.language)
+      
       languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
         if (wp._id === action.payload.wordsPack._id) {
           return {...action.payload.wordsPack, active: true}

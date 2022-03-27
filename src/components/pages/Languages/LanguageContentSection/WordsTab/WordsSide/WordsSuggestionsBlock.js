@@ -43,9 +43,10 @@ const WordsSuggestionsBlock = ({ languageTitleObj }) => {
   }, [dispatch, token, languageTitleObj._id, wordsList, lastWord, changedLastWord])
 
   useEffect(() => {
-    setPrevWordsList(wordsList && wordsList.value)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [changedWordsList])
+    if (!changedWordsList) {
+      setPrevWordsList(wordsList && wordsList.value)
+    }
+  }, [changedWordsList, wordsList])
 
   const addSuggestedWordHandler = word => {
     let updatedWordsList = prevWordsList + `\n${ word.word } - ${ word.translation } // ${ word.example }`
