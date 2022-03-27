@@ -15,7 +15,7 @@
         box-sizing: border-box;
         padding: 16px;
         border: 1px solid transparent;
-        border-radius: 6px;
+        border-radius: 4px;
         height: 150px;
         display: flex;
         flex-direction: column;
@@ -140,10 +140,34 @@
     .words-suggestions-block {
       margin-top: 16px;
       height: 20%;
+      background: $bg-color_lvl1;
+      border-radius: 4px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+
+      & > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          & > span {
+            display: block;
+            font-size: 14px;
+            color: $grey-text;
+            
+            &:hover {
+              color: #fff;
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
 
-    .words-list-block,
-    .words-suggestions-block {
+    .words-list-block {
       & > textarea {
         box-sizing: border-box;
         width: 100%;

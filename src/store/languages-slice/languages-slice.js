@@ -12,7 +12,7 @@ const languagesSlice = createSlice({
     setLanguagesList(state, action) {
       if (action.payload.languagesObjs.length > 0) {
         const firstLanguageObj = action.payload.languagesObjs[0]
-        firstLanguageObj.wordsList = { changed: false, value: firstLanguageObj.wordsList }
+        firstLanguageObj.wordsList = { changed: false, value: firstLanguageObj.wordsList, lastWord: firstLanguageObj.wordsList.trim().split('\n')[firstLanguageObj.wordsList.trim().split('\n').length - 1] }
         if (firstLanguageObj.wordsPacks.length > 0) {
           firstLanguageObj.wordsPacks = firstLanguageObj.wordsPacks.map((wp, idx) => {
             return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
@@ -50,6 +50,7 @@ const languagesSlice = createSlice({
       console.log(action.payload)
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.wordsList = { changed: false, value: action.payload.wordsList }
+      languageObj.suggestedWords = []
     },
     setCreatedWordsPack(state, action) {
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
@@ -76,6 +77,10 @@ const languagesSlice = createSlice({
       if (languageObj.wordsPacks.length > 0) {
         languageObj.wordsPacks[0].active = true
       }
+    },
+    setSuggestedWords(state, action) {
+      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      languageObj.suggestedWords = action.payload.words
     },
 
     

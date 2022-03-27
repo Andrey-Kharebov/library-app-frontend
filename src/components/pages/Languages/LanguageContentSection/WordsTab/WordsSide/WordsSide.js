@@ -9,7 +9,7 @@ const WordsSide = ({ languageTitleObj }) => {
     <div className='words-side'>
       <ActionsBlock languageTitleObj={ languageTitleObj } />
       <WordsListBlock languageTitleObj={ languageTitleObj } />
-      <WordsSuggestionsBlock />
+      <WordsSuggestionsBlock languageTitleObj={ languageTitleObj } />
     </div>
   )
 }

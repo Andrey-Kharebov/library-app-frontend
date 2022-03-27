@@ -246,6 +246,37 @@ export const finishPack = (token, wordsPackId, words) => {
   }
 }
 
+export const wordsSuggestion = (token, languageId, word) => {
+  return async dispatch => {
+    try {
+      dispatch(uiActions.setIsLoading(true))
+      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsSuggestion`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          word
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not create a new language!')
+      }
+
+      const languageData = data.languageData // { languageTitle{ _id, title }, words }
+      dispatch(languagesActions.setSuggestedWords(languageData))
+      dispatch(uiActions.setIsLoading(false))
+    } catch (err) {
+      dispatch(uiActions.setIsLoading(false))
+      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+    }
+  }
+}
+
 // const DUMMY_WORDS = [
 //   { id: 'w1', word: 'to squeeze', translation: 'сжать, надавить // you gotta put the squeeze on him 
 //   { id: 'w2', word: 'brevity', translation: 'краткость // I am one of those who prefer brevity 

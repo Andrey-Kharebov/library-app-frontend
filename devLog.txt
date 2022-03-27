@@ -5,6 +5,8 @@
   4. сделать common модалку
 
 // Commits
+34. Completed words suggestion func.
+
 33. Completed finishedPack func.
   - added finishedPack action & thunk
 
