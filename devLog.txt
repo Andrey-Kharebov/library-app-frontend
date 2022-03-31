@@ -5,6 +5,8 @@
   4. сделать common модалку
 
 // Commits
+37. Added Search Bar component & css for it
+
 36. Added WordsTab
 
 35. Fixes
