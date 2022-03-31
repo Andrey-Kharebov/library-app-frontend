@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchLanguagesById } from '../../../../store/languages-slice/languages-thunks'
 
 import SubTabs from '../../../common/tabs/SubTabs'
-import TextsTab from './TextsTab'
+import PacksTab from './PacksTab/PacksTab'
 import WordsTab from './WordsTab/WordsTab'
+import TextsTab from './TextsTab/TextsTab'
 import Loader from '../../../common/Loader'
 
-const languageTabs = ['Words', 'Texts']
+const languageTabs = ['Packs', 'Words', 'Texts']
 
 const LanguageContentSection = ({ languageTitleObj }) => {
   const dispatch = useDispatch()
@@ -27,8 +28,9 @@ const LanguageContentSection = ({ languageTitleObj }) => {
   const [tab, setTab] = useState(0)
 
   const tabs = {  
-    0: <WordsTab languageTitleObj={ languageTitleObj } />,
-    1: <TextsTab />
+    0: <PacksTab languageTitleObj={ languageTitleObj } />,
+    1: <WordsTab />,
+    2: <TextsTab />
   }
 
   const Specified = tabs[tab] ? tabs[tab] : null

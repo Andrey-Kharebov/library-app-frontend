@@ -1,14 +1,11 @@
 import React from 'react'
 
 import SectionWrapper from '../../../../common/wrappers/SectionWrapper'
-import CardsSide from './CardsSide/CardsSide'
-import WordsSide from './WordsSide/WordsSide'
 
-const WordsTab = ({ languageTitleObj }) => {
+const WordsTab = () => {
   return (
     <SectionWrapper className='words-tab'>
-      <CardsSide languageTitleObj={ languageTitleObj } />
-      <WordsSide languageTitleObj={ languageTitleObj } />
+      WordsTabs
     </SectionWrapper>
   )
 }

@@ -60,14 +60,14 @@ const Auth = () => {
 
   if (isLoading) {
     return (
-      <PageWrapper title='Authentication' className='auth-page'>
+      <PageWrapper title='Authorization' className='auth-page'>
         <Loader />
       </PageWrapper>
     )
   } 
   
   return (
-    <PageWrapper title='Authentication' className='auth-page'>
+    <PageWrapper title='Authorization' className='auth-page'>
       <div className='auth-card'>
         <div className='auth-card__switcher'>
           <span className={ `auth-card__title ${ formMode === 'login' ? 'active' : '' }` } onClick={ formModeHandler }>Login</span>

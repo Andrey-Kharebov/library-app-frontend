@@ -5,6 +5,8 @@
   4. сделать common модалку
 
 // Commits
+36. Added WordsTab
+
 35. Fixes
   - fixed preblem with lastWords after creating new pack 
   - fixed problem with saving repeatCramWords in a wordslist after finishing a pack 

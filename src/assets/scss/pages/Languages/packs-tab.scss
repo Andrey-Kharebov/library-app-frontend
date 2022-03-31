@@ -1,0 +1,185 @@
+.packs-tab {
+  height: 100%;
+  border-top-left-radius: 0;
+  display: flex;
+
+  .cards-side {
+    width: 30%;
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .word-card-block {
+      .word-card {
+        box-sizing: border-box;
+        padding: 16px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > span {
+          margin-top: 5px;
+          color: $grey-text;
+          text-align: center;
+        }
+
+        &:hover {
+          border: 1px solid $border-color_lvl4;
+          cursor: pointer;
+        }
+      }
+
+      .actions-block {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-evenly;
+
+        & > button {
+          width: 150px;
+          height: 30px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .levels-block {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-evenly;
+
+        .level {
+          color: $grey-text;
+          font-size: 14px;
+          cursor: pointer;
+
+          &:hover {
+            color: #fff
+          }
+        }
+
+        .active {
+          color: #fff;
+          font-weight: 700;
+        }
+
+        .last-level {
+          color: red;
+          font-weight: 700;
+
+          &:hover {
+            color: red;
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    .words-packs-block {
+      z-index: 11;
+
+      & > span {
+        font-size: 15px;
+        margin-bottom: 16px;
+        display: block;
+        color: $grey-text;
+      }
+
+      ul {
+        background: $bg-color_lvl1;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-height: 300px;
+        overflow: scroll;
+
+        li {
+          border: 1px solid transparent;
+          color: $grey-text;
+          padding: 6px;
+          font-size: 12px;
+          
+          &:hover {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+            cursor: pointer;
+          }
+        }
+
+        .active {
+          color: #fff;
+          border-bottom: 1px solid #fff;
+        }
+      }
+    }
+  } 
+
+  .words-side {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .actions-block {
+      height: 5%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .words-list-block {
+      margin-top: 16px;
+      height: 75%;
+    }
+
+    .words-suggestions-block {
+      margin-top: 16px;
+      height: 20%;
+      background: $bg-color_lvl1;
+      border-radius: 4px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+
+      & > ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          & > span {
+            display: block;
+            font-size: 14px;
+            color: $grey-text;
+            
+            &:hover {
+              color: #fff;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .words-list-block {
+      & > textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        resize: none;
+        background: $bg-color-lvl1;
+        color: $grey-text;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
