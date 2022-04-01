@@ -29,8 +29,8 @@ const LanguageContentSection = ({ languageTitleObj }) => {
 
   const tabs = {  
     0: <PacksTab languageTitleObj={ languageTitleObj } />,
-    1: <WordsTab />,
-    2: <TextsTab />
+    1: <WordsTab languageTitleObj={ languageTitleObj } />,
+    2: <TextsTab languageTitleObj={ languageTitleObj } />
   }
 
   const Specified = tabs[tab] ? tabs[tab] : null

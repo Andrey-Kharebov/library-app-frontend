@@ -5,6 +5,9 @@
   4. сделать common модалку
 
 // Commits
+38. Added Pagination & basic wordsBlock components & css for it
+  - added pagination func.
+  
 37. Added Search Bar component & css for it
 
 36. Added WordsTab

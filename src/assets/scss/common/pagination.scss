@@ -1,0 +1,45 @@
+.pagination {
+  margin-top: 32px;
+  display:flex;
+  justify-content:center;
+  list-style:none;
+  color:#fff;
+
+  .prevPage,
+  .nextPage {
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+
+    &:hover {
+      background: #51556d;
+      cursor: pointer;
+    }
+  }
+
+  .prevPage {
+    margin-right: 8px;
+  }
+
+  & > div {
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
+
+    &:hover {
+      background: #51556d;
+      cursor: pointer;
+    }
+  }
+
+  .currentPage {
+    background: #51556d;
+  }
+}
