@@ -1,22 +1,48 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { languagesActions } from '../../../../../store/languages-slice/languages-slice'
+import { deleteWord, getWords, saveWord } from '../../../../../store/languages-slice/languages-thunks'
 
-const WordsBlock = ({ languageTitleObj }) => {
+const WordsBlock = ({ languageTitleObj, currentPage, perPage }) => {
+  const dispatch = useDispatch()
+  const token = useSelector(state => state.authReducer.token)
   const languageObj = useSelector(state => state.languagesReducer.languagesObjs).find(lo => lo._id === languageTitleObj._id)
-  const words = languageObj && languageObj.words
+  const wordsIdsArr = languageObj && languageObj.words 
+  const wordsObjs = languageObj && languageObj.wordsObjs
   
-  const DUMMY_WORD = 'an(to) insight (into) - понимание, представление (о) понять // even the erroneous letters will allow us insight into how it perceived by real people'
-  
+  useEffect(() => {
+    if (wordsIdsArr) {
+      dispatch(getWords(token, languageTitleObj._id, wordsIdsArr.slice((currentPage - 1) * perPage, currentPage * perPage)))
+    }
+  }, [wordsIdsArr, dispatch, token, languageTitleObj._id, currentPage, perPage])
+
+  const changeWordHandler = (event, word) => {
+    let updatedWord = {
+      ...word,
+      word: event.target.value.trim().split(' - ')[0],
+      translation: event.target.value.trim().split(' - ')[1].split(' // ')[0],
+      example: event.target.value.trim().split(' // ')[1],
+    }  
+    dispatch(languagesActions.changeWordObj(updatedWord))
+  }
+
+  const deleteWordHandler = word => {
+    dispatch(deleteWord(token, languageTitleObj._id, word))
+  }
+ 
+  const saveWordHandler = word => {
+    dispatch(saveWord(token, languageTitleObj._id, word))
+  }
+
   return (
     <div className='words-block'>
       <ul>
-        { words && words.map((w, idx) => {
-          if (idx > 9) return null
+        { wordsObjs && wordsObjs.map(w => {
           return (
-            <li key={ idx }>
-              <textarea defaultValue={ DUMMY_WORD } />
-              <button>Save</button>
-              <button>Delete</button>
+            <li key={ w._id }>
+              <textarea value={ `${ w.word } - ${ w.translation } // ${ w.example }` } onChange={ event => changeWordHandler(event, w) }  />
+              <button disabled={ w.changed ? false : true } onClick={ () => saveWordHandler(w) }>Save</button>
+              <button onClick={ () => deleteWordHandler(w) }>Delete</button>
             </li>
           )
         })}

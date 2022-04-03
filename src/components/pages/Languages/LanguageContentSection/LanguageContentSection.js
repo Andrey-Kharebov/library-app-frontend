@@ -18,6 +18,10 @@ const LanguageContentSection = ({ languageTitleObj }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    setTab(0)
+  }, [languageTitleObj])
+
+  useEffect(() => {
     setIsLoading(false)
     if (token && !languageObj) {
       setIsLoading(true)

@@ -55,6 +55,7 @@ const languagesSlice = createSlice({
       console.log(action.payload)
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.wordsList = { changed: false, value: action.payload.wordsList }
+      languageObj.words = [...action.payload.words]
       if (languageObj.wordsPacks.length === 0) {
         languageObj.wordsPacks.push({...action.payload.wordsPack, active: true })
       } else {
@@ -84,6 +85,22 @@ const languagesSlice = createSlice({
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.suggestedWords = action.payload.words
     },
+    setWordsObjs(state, action) {
+      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      languageObj.wordsObjs = action.payload.words
+    },
+    setSavedWord(state, action) {
+      console.log(action.payload)
+      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+
+      languageObj.wordsObjs = languageObj.wordsObjs.map(w => {
+        if (w._id === action.payload.word._id) {
+          return { ...action.payload.word, changed: false }
+        } else {
+          return { ...w }
+        }
+      })
+    },
 
     
     changeWordsList(state, action) {
@@ -97,6 +114,22 @@ const languagesSlice = createSlice({
       languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
         return wp._id === wordsPackId ? { ...wp, active: true, } : { ...wp, active: false }
       })
+    },
+    changeWordObj(state, action) {
+      const languageObj = state.languagesObjs.find(l => l._id === action.payload.language)
+
+      languageObj.wordsObjs = languageObj.wordsObjs.map(w => {
+        if (w._id === action.payload._id) {
+          return { ...action.payload, changed: true }
+        } else {
+          return { ...w }
+        }
+      })
+    },
+    deleteWordObj(state, action) {
+      console.log(action.payload)
+      const languageObj = state.languagesObjs.find(l => l._id === action.payload.word.language._id)
+      languageObj.words = [...action.payload.word.language.words]
     }
   }
 })

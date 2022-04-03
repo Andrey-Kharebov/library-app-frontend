@@ -5,6 +5,9 @@
   4. сделать common модалку
 
 // Commits
+39. Added save & delete word functionality
+  - save & delete actions & thunks 
+  
 38. Added Pagination & basic wordsBlock components & css for it
   - added pagination func.
   

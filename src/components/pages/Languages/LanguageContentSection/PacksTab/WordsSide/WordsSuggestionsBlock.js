@@ -32,7 +32,6 @@ const WordsSuggestionsBlock = ({ languageTitleObj }) => {
     const timeoutTillRequest = setTimeout(() => {
       if (wordsList && wordsList.changed && lastWord !== changedLastWord) {
         dispatch(wordsSuggestion(token, languageTitleObj._id, changedLastWord))
-
       }
     }, 500)
     
