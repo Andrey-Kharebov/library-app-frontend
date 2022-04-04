@@ -1,26 +1,38 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialState = {
-  languagesTitlesList: null,
-  languagesObjs: null
+  langTitlesList: null,
+  langObjs: null
 }
 
 const languagesSlice = createSlice({
   name: 'languages',
   initialState,
   reducers: {
-    setLanguagesList(state, action) {
-      if (action.payload.languagesObjs.length > 0) {
-        const firstLanguageObj = action.payload.languagesObjs[0]
-        firstLanguageObj.wordsList = { changed: false, value: firstLanguageObj.wordsList, lastWord: firstLanguageObj.wordsList.trim().split('\n')[firstLanguageObj.wordsList.trim().split('\n').length - 1] }
-        if (firstLanguageObj.wordsPacks.length > 0) {
-          firstLanguageObj.wordsPacks = firstLanguageObj.wordsPacks.map((wp, idx) => {
-            return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
-          })
-        }
+    // setLanguagesList(state, action) {
+    //   if (action.payload.languagesObjs.length > 0) {
+    //     const firstLanguageObj = action.payload.languagesObjs[0]
+    //     firstLanguageObj.wordsList = { changed: false, value: firstLanguageObj.wordsList, lastWord: firstLanguageObj.wordsList.trim().split('\n')[firstLanguageObj.wordsList.trim().split('\n').length - 1] }
+    //     if (firstLanguageObj.wordsPacks.length > 0) {
+    //       firstLanguageObj.wordsPacks = firstLanguageObj.wordsPacks.map((wp, idx) => {
+    //         return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
+    //       })
+    //     }
         
-        state.languagesTitlesList = action.payload.languagesTitlesList
-        state.languagesObjs = [firstLanguageObj]
+    //     state.languagesTitlesList = action.payload.languagesTitlesList
+    //     state.languagesObjs = [firstLanguageObj]
+    //   }
+    // },
+    setFetchedLanguages(state, action) {
+      if (action.payload === 'loading') {
+        state.langTitlesList = 'loading'
+      } else if (action.payload === 'error') {
+        state.langTitlesList = 'error'
+      } else if (action.payload.langObjs.length > 0) {
+        const firstLangObj = action.payload.langObjs[0]
+        
+        state.langTitlesList = action.payload.langTitlesList
+        state.langObjs = [firstLangObj]
       }
     },
     setCreatedLanguage(state, action) {

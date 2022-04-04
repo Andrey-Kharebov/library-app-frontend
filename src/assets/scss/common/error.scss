@@ -1,0 +1,23 @@
+.error {
+  width: 100%;
+  margin: 60px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > span {
+    position:relative;
+    color: $grey-text;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: -75px;
+      background-image: url(/assets/img/warning.png);
+      width: 100px;
+      height: 100px;
+      transform :scale(.4);
+    }
+  }
+}

@@ -1,10 +1,37 @@
 import { languagesActions } from './languages-slice'
 import { uiActions } from '../ui-slice/ui-slice'
 
-export const fetchLanguagesList = token => {
+// export const fetchLanguagesList = token => {
+//   return async dispatch => {
+//     try {
+//       dispatch(uiActions.setIsLoading(true))
+//       const response = await fetch('http://localhost:9000/api/languages', {
+//         headers: {
+//           'Authorization': 'Bearer ' + token
+//         }
+//       })
+
+//       const data = await response.json()
+
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Could not fetch languages list!')
+//       }
+      
+//       const languagesData = data.languagesData
+      
+//       dispatch(languagesActions.setLanguagesList(languagesData))
+//       dispatch(uiActions.setIsLoading(false))
+//     } catch (err) {
+//       dispatch(uiActions.setIsLoading(false))
+//       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+//     }
+//   }
+// }
+
+export const fetchLanguages = token => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(languagesActions.setFetchedLanguages('loading'))
       const response = await fetch('http://localhost:9000/api/languages', {
         headers: {
           'Authorization': 'Bearer ' + token
@@ -16,13 +43,11 @@ export const fetchLanguagesList = token => {
       if (!response.ok) {
         throw new Error(data.message || 'Could not fetch languages list!')
       }
-      
-      const languagesData = data.languagesData
-      
-      dispatch(languagesActions.setLanguagesList(languagesData))
-      dispatch(uiActions.setIsLoading(false))
+
+      const langData = data.langData
+      dispatch(languagesActions.setFetchedLanguages(langData))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
+      dispatch(languagesActions.setFetchedLanguages('error'))
       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
     }
   }

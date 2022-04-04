@@ -5,7 +5,7 @@ import SectionWrapper from '../../../../common/wrappers/SectionWrapper'
 const TextsTab = () => {
   return (
     <SectionWrapper className='texts-tab'>
-      TextsTabs
+      texts-tab
     </SectionWrapper>
   )
 }

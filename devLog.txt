@@ -5,6 +5,12 @@
   4. сделать common модалку
 
 // Commits
+42. Refactoring
+  - added Error component
+  - rewrited LanguagesPage component
+    - added Loader & Error func. to it 
+  - rewrited setFetchedLanguages action & fetchLanguages thunk
+
 41. Css fixes 
   - pagination & wordsBlock & levels
   
