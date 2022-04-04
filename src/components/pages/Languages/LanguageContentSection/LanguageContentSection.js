@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchLanguagesById } from '../../../../store/languages-slice/languages-thunks'
+import { languagesActions } from '../../../../store/languages-slice/languages-slice'
 
 import SubTabs from '../../../common/tabs/SubTabs'
 import PacksTab from './PacksTab/PacksTab'
@@ -16,6 +17,7 @@ const LanguageContentSection = ({ languageTitleObj }) => {
   const languageObj = useSelector(state => state.languagesReducer.languagesObjs.find(lo => lo._id === languageTitleObj._id))
   
   const [isLoading, setIsLoading] = useState(false)
+  const [tab, setTab] = useState(0)
 
   useEffect(() => {
     setTab(0)
@@ -29,7 +31,14 @@ const LanguageContentSection = ({ languageTitleObj }) => {
     }
   }, [dispatch, token, languageTitleObj, languageObj])
 
-  const [tab, setTab] = useState(0)
+  useEffect(() => {
+    if (languageObj) {
+      dispatch(languagesActions.setSuggestedWords({
+        languageTitle: { _id: languageTitleObj._id, title: languageTitleObj.title },
+        words: null
+      }))
+    }
+  }, [dispatch, tab, languageTitleObj._id, languageTitleObj.title])
 
   const tabs = {  
     0: <PacksTab languageTitleObj={ languageTitleObj } />,

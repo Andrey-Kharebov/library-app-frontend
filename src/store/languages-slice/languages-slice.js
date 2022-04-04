@@ -82,8 +82,10 @@ const languagesSlice = createSlice({
       }
     },
     setSuggestedWords(state, action) {
+      console.log(action.payload)
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
-      languageObj.suggestedWords = action.payload.words
+      console.log(current(languageObj))
+      languageObj.suggestedWords = action.payload.words 
     },
     setWordsObjs(state, action) {
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
@@ -129,6 +131,9 @@ const languagesSlice = createSlice({
     deleteWordObj(state, action) {
       console.log(action.payload)
       const languageObj = state.languagesObjs.find(l => l._id === action.payload.word.language._id)
+      if (languageObj.suggestedWords) {
+        languageObj.suggestedWords = languageObj.suggestedWords.filter(w => w._id !== action.payload.word._id)
+      }
       languageObj.words = [...action.payload.word.language.words]
     }
   }

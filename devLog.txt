@@ -5,6 +5,8 @@
   4. сделать common модалку
 
 // Commits
+40. Added words suggestion func.
+
 39. Added save & delete word functionality
   - save & delete actions & thunks 
   
