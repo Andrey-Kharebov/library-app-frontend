@@ -49,7 +49,7 @@ const WordsBlock = ({ languageTitleObj, currentPage, perPage, searchValue }) => 
           { suggestedWords && suggestedWords.slice((currentPage - 1) * perPage, currentPage * perPage).map(w => {
             return (
               <li key={ w._id }>
-                <textarea value={ `${ w.word } - ${ w.translation } // ${ w.example }` } onChange={ event => changeWordHandler(event, w) }  />
+                <input value={ `${ w.word } - ${ w.translation } // ${ w.example }` } onChange={ event => changeWordHandler(event, w) } />
                 <button disabled={ w.changed ? false : true } onClick={ () => saveWordHandler(w) }>Save</button>
                 <button onClick={ () => deleteWordHandler(w) }>Delete</button>
               </li>
@@ -66,7 +66,7 @@ const WordsBlock = ({ languageTitleObj, currentPage, perPage, searchValue }) => 
         { wordsObjs && wordsObjs.map(w => {
           return (
             <li key={ w._id }>
-              <textarea value={ `${ w.word } - ${ w.translation } // ${ w.example }` } onChange={ event => changeWordHandler(event, w) }  />
+              <input value={ `${ w.word } - ${ w.translation } // ${ w.example }` } onChange={ event => changeWordHandler(event, w) } />
               <button disabled={ w.changed ? false : true } onClick={ () => saveWordHandler(w) }>Save</button>
               <button onClick={ () => deleteWordHandler(w) }>Delete</button>
             </li>

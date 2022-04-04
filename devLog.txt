@@ -5,6 +5,9 @@
   4. сделать common модалку
 
 // Commits
+41. Css fixes 
+  - pagination & wordsBlock & levels
+  
 40. Added words suggestion func.
 
 39. Added save & delete word functionality
