@@ -24,11 +24,7 @@ const languagesSlice = createSlice({
     //   }
     // },
     setFetchedLanguages(state, action) {
-      if (action.payload === 'loading') {
-        state.langTitlesList = 'loading'
-      } else if (action.payload === 'error') {
-        state.langTitlesList = 'error'
-      } else if (action.payload.langObjs.length > 0) {
+      if (action.payload.langObjs.length > 0) {
         const firstLangObj = action.payload.langObjs[0]
         
         state.langTitlesList = action.payload.langTitlesList

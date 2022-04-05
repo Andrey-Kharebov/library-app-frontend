@@ -31,7 +31,9 @@ import { uiActions } from '../ui-slice/ui-slice'
 export const fetchLanguages = token => {
   return async dispatch => {
     try {
-      dispatch(languagesActions.setFetchedLanguages('loading'))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'fetchLanguages', isLoading: true }))
+
       const response = await fetch('http://localhost:9000/api/languages', {
         headers: {
           'Authorization': 'Bearer ' + token
@@ -46,9 +48,11 @@ export const fetchLanguages = token => {
 
       const langData = data.langData
       dispatch(languagesActions.setFetchedLanguages(langData))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(languagesActions.setFetchedLanguages('error'))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'fetchLanguages', error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }

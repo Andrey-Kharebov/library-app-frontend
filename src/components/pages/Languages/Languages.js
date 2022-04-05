@@ -13,7 +13,8 @@ const LanguagesPage = () => {
   const dispatch = useDispatch()
   const token = useSelector(state => state.authReducer.token)
   const langTitlesList = useSelector(state => state.languagesReducer.langTitlesList)
-  const error = useSelector(state => state.uiReducer.error)
+  const loadingObj = useSelector(state => state.uiReducer.loadingObj)
+  const errorObj = useSelector(state => state.uiReducer.errorObj)
 
   const [tab, setTab] = useState(0)
 
@@ -25,7 +26,7 @@ const LanguagesPage = () => {
 
   let mainTabs
 
-  if (langTitlesList && langTitlesList !== 'loading' && langTitlesList !== 'error' && langTitlesList.length > 0) {
+  if (langTitlesList && !loadingObj && !errorObj && langTitlesList.length > 0) {
     mainTabs = {
       items: langTitlesList.map((i, idx) => {
         return { name: i.title, val: idx === 0 ? 'selected' : 'non-selected' }
@@ -37,8 +38,8 @@ const LanguagesPage = () => {
 
   const currentMainTab = mainTabs && langTitlesList[tab]
 
-  if (langTitlesList === 'loading') return <PageWrapper title='Languages' className='languages-page'><Loader /></PageWrapper>
-  if (langTitlesList === 'error') return <PageWrapper title='Languages' className='languages-page'><Error error={ error } /></PageWrapper>
+  if (loadingObj && loadingObj.type === 'fetchLanguages') return <PageWrapper title='Languages' className='languages-page'><Loader /></PageWrapper>
+  if (errorObj && errorObj.type === 'fetchLanguages') return <PageWrapper title='Languages' className='languages-page'><Error error={ errorObj.error } /></PageWrapper>
 
   return (
     <PageWrapper title='Languages' className='languages-page'>

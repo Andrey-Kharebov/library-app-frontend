@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  isLoading: false,
-  error: null
+  loadingObj: null,
+  errorObj: null
 }
 
 const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    setIsLoading(state, action) {
-      state.isLoading = action.payload
+    setLoadingObj(state, action) { // { type: 'fecthLanguages', isLoading: true }
+      state.loadingObj = action.payload
     },
-    setError(state, action) {
-      state.error = action.payload
+    setErrorObj(state, action) { // { type: 'fecthLanguages', error: 'Something went wrong!' }
+      state.errorObj = action.payload
     }
   }
 })

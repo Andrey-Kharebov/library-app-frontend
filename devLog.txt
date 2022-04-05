@@ -5,6 +5,8 @@
   4. сделать common модалку
 
 // Commits
+43. Changed loading & error logic
+
 42. Refactoring
   - added Error component
   - rewrited LanguagesPage component
