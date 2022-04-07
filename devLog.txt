@@ -6,6 +6,10 @@
 
 // Commits
 
+46. Refactoring_v4
+  - rewrited saveWordsList thunk && slices for it
+  - added loading & error logic for wordsListBlock
+
 45. Refactoring_v3
   - rewrited fetchLanguages, createLanguage, fetchLanguageObj && slices for them 
   - added loading & error logic for LanguageContentSection

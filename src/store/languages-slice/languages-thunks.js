@@ -180,12 +180,44 @@ export const fetchLanguageObj = (token, languageId) => {
   }
 }
 
+// export const saveWordsList = (token, languageId, wordsList) => {
+//   return async dispatch => {
+//     try {
+//       dispatch(uiActions.setIsLoading(true))
+//       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsList`, {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer ' + token
+//         },
+//         body: JSON.stringify({
+//           wordsList: wordsList
+//         })
+//       })
 
+//       const data = await response.json()
+
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Could not create a new language!')
+//       }
+
+//       const languageData = data.languageData // { languageTitle{ _id, title }, wordsList }
+      
+//       dispatch(languagesActions.setWordsList(languageData))
+//       dispatch(uiActions.setIsLoading(false))
+//     } catch (err) {
+//       dispatch(uiActions.setIsLoading(false))
+//       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+//     }
+//   }
+// }
 
 export const saveWordsList = (token, languageId, wordsList) => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'saveWordsList', isLoading: true }))
+
       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsList`, {
         method: 'PATCH',
         headers: {
@@ -200,19 +232,22 @@ export const saveWordsList = (token, languageId, wordsList) => {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Could not create a new language!')
+        throw new Error(data.message || 'Could not create new language!')
       }
 
-      const languageData = data.languageData // { languageTitle{ _id, title }, wordsList }
-      
-      dispatch(languagesActions.setWordsList(languageData))
-      dispatch(uiActions.setIsLoading(false))
+      const langData = data.langData
+      dispatch(languagesActions.setWordsList(langData))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'saveWordsList', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
+
+
+
 
 export const createWordsPack = (token, languageId, wordsList) => {
   return async dispatch => {

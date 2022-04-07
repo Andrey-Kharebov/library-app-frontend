@@ -29,8 +29,8 @@ const LanguageContentSection = ({ langTitleObj }) => {
   }, [token, langObj, dispatch, langTitleObj._id])
 
   const tabs = {  
-    0: <PacksTab />,
-    1: <WordsTab  />,
+    0: langObj && <PacksTab langTitleObj={ langTitleObj } />,
+    1: <WordsTab />,
     2: <TextsTab />
   }
 
@@ -39,7 +39,6 @@ const LanguageContentSection = ({ langTitleObj }) => {
   if (!langObj && loadingObj && (loadingObj.type === 'fetchLanguageObj' || loadingObj.type === 'fetchLanguageObj')) return <div className='language-content-section'><Loader /></div>
   if (!langObj && errorObj && errorObj.type === 'fetchLanguageObj') return <div className='language-content-section'><Error error={ errorObj.error } /></div>
 
-  console.log('langObj', langObj)
   return (
     <div className='language-content-section'>
        <SubTabs tab={ tab } setTab={ setTab } data={ langTabs } />

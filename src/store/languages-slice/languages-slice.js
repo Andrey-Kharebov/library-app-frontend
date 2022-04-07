@@ -25,7 +25,8 @@ const languagesSlice = createSlice({
     // },
     setFetchedLanguages(state, action) {
       const firstLangObj = action.payload.langObjs[0]
-      
+      firstLangObj.wordsList = { changed: false, value: firstLangObj.wordsList }
+
       state.langTitlesList = action.payload.langTitlesList
       state.langObjs = [firstLangObj]
     },
@@ -72,11 +73,17 @@ const languagesSlice = createSlice({
     },
 
 
-    
+    // setWordsList(state, action) {
+    //   let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+    //   languageObj.wordsList = { changed: false, value: action.payload.wordsList }
+    //   languageObj.suggestedWords = []
+    // },
     setWordsList(state, action) {
-      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
-      languageObj.wordsList = { changed: false, value: action.payload.wordsList }
-      languageObj.suggestedWords = []
+      const langObj = state.langObjs.find(lo => lo._id === action.payload.langTitle._id)
+      langObj.wordsList = { changed: false, value: action.payload.wordsList }
+      // langObj.suggestedWords = []
+
+      state.langObjs.push(langObj) 
     },
     setCreatedWordsPack(state, action) {
       console.log(action.payload)
@@ -132,10 +139,15 @@ const languagesSlice = createSlice({
     },
 
     
+    // changeWordsList(state, action) {
+    //   const languageObj = state.languagesObjs.find(lo => lo._id === action.payload.languageObjId)
+    //   languageObj.wordsList.changed = true 
+    //   languageObj.wordsList.value = action.payload.value
+    // },
     changeWordsList(state, action) {
-      const languageObj = state.languagesObjs.find(lo => lo._id === action.payload.languageObjId)
-      languageObj.wordsList.changed = true 
-      languageObj.wordsList.value = action.payload.value
+      const langObj = state.langObjs.find(lo => lo._id === action.payload.langObjId)
+      langObj.wordsList.changed = true 
+      langObj.wordsList.value = action.payload.value
     },
     changeActiveWordsPack(state, action) {
       const wordsPackId = action.payload.wordsPackId

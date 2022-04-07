@@ -5,10 +5,11 @@ import CardsSide from './CardsSide/CardsSide'
 import WordsSide from './WordsSide/WordsSide'
 
 
-const PacksTab = ({ languageTitleObj }) => {
+const PacksTab = ({ langTitleObj }) => {
+
   return (
     <SectionWrapper className='packs-tab'>
-      packs-tab
+      <WordsSide langTitleObj={ langTitleObj } />
     </SectionWrapper>
   )
 }
