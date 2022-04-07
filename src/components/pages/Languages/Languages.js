@@ -26,7 +26,10 @@ const LanguagesPage = () => {
 
   let mainTabs
 
-  if (langTitlesList && !loadingObj && !errorObj && langTitlesList.length > 0) {
+  if (langTitlesList 
+    && (!loadingObj || loadingObj.type !== 'fetchLanguages')
+    && (!errorObj || errorObj.type !== 'fetchLanguages')
+    && langTitlesList.length > 0) {
     mainTabs = {
       items: langTitlesList.map((i, idx) => {
         return { name: i.title, val: idx === 0 ? 'selected' : 'non-selected' }
@@ -38,13 +41,13 @@ const LanguagesPage = () => {
 
   const currentMainTab = mainTabs && langTitlesList[tab]
 
-  if (loadingObj && loadingObj.type === 'fetchLanguages') return <PageWrapper title='Languages' className='languages-page'><Loader /></PageWrapper>
-  if (errorObj && errorObj.type === 'fetchLanguages') return <PageWrapper title='Languages' className='languages-page'><Error error={ errorObj.error } /></PageWrapper>
+  if (!langTitlesList && loadingObj && (loadingObj.type === 'fetchLanguages' || loadingObj.type === 'createLanguage')) return <PageWrapper title='Languages' className='languages-page'><Loader /></PageWrapper>
+  if (!langTitlesList && errorObj && errorObj.type === 'fetchLanguages') return <PageWrapper title='Languages' className='languages-page'><Error error={ errorObj.error } /></PageWrapper>
 
   return (
     <PageWrapper title='Languages' className='languages-page'>
       <NewLanguageBlock />
-      { !langTitlesList || langTitlesList.length === 0 ? (
+      { langTitlesList && langTitlesList.length === 0 ? (
         <p>There are no languages here yet. Create your first one!</p>
       ) : (
         <>

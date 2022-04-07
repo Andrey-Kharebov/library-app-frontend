@@ -9,7 +9,7 @@ import Root from './Root'
 const Router = () => {
   return (
     <Provider store={ store }>
-    <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path='/:firstParam' element={ <Root /> } />
           <Route path='/' element={ <Root /> } />

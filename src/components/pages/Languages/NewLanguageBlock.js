@@ -5,9 +5,8 @@ import { createLanguage } from '../../../store/languages-slice/languages-thunks'
 const NewLanguageBlock = () => {
   const languageInputRef = useRef()
   const dispatch = useDispatch()
-
   const token = useSelector(state => state.authReducer.token)
-  const error = useSelector(state => state.uiReducer.error)
+  const errorObj = useSelector(state => state.uiReducer.errorObj)
 
   const addLanguageHandler = () => {
     dispatch(createLanguage(token, languageInputRef.current.value))
@@ -16,10 +15,10 @@ const NewLanguageBlock = () => {
 
   return (
     <div className='new-language-block'>
-        <input ref={ languageInputRef } />
-        <button onClick={ addLanguageHandler }>Add language</button>
-        { error && <div className='error-block'>{ error }</div> }
-      </div>
+      <input ref={ languageInputRef } />
+      <button onClick={ addLanguageHandler }>Add language</button>
+      { errorObj && errorObj.type === 'createLanguage' && <div className='error-block'>{ errorObj.error }</div> }
+    </div>
   )
 }
 

@@ -24,36 +24,55 @@ const languagesSlice = createSlice({
     //   }
     // },
     setFetchedLanguages(state, action) {
-      if (action.payload.langObjs.length > 0) {
-        const firstLangObj = action.payload.langObjs[0]
-        
-        state.langTitlesList = action.payload.langTitlesList
-        state.langObjs = [firstLangObj]
-      }
-    },
-    setCreatedLanguage(state, action) {
-      const newLanguageObj = action.payload.newLanguageObj
-      newLanguageObj.wordsList = { changed: false, value: newLanguageObj.wordsList }
+      const firstLangObj = action.payload.langObjs[0]
       
-      if (!state.languagesTitlesList) {
-        state.languagesTitlesList = [action.payload.newLanguageTitle]
-        state.languagesObjs = [newLanguageObj]
-      } else {
-        state.languagesTitlesList.push(action.payload.newLanguageTitle)
-        state.languagesObjs.push(newLanguageObj)
-      }
+      state.langTitlesList = action.payload.langTitlesList
+      state.langObjs = [firstLangObj]
     },
-    setLanguageObj(state, action) {
-      const languageObj = action.payload
-      languageObj.wordsList = { changed: false, value: languageObj.wordsList }
-      if (languageObj.wordsPacks.length > 0) {
-        languageObj.wordsPacks = languageObj.wordsPacks.map((wp, idx) => {
-          return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
-        })
-      }
+    // setCreatedLanguage(state, action) {
+    //   const newLanguageObj = action.payload.newLanguageObj
+    //   newLanguageObj.wordsList = { changed: false, value: newLanguageObj.wordsList }
+      
+    //   if (!state.languagesTitlesList) {
+    //     state.languagesTitlesList = [action.payload.newLanguageTitle]
+    //     state.languagesObjs = [newLanguageObj]
+    //   } else {
+    //     state.languagesTitlesList.push(action.payload.newLanguageTitle)
+    //     state.languagesObjs.push(newLanguageObj)
+    //   }
+    // },
+    setCreatedLanguage(state, action) {
+      const newLangObj = action.payload.newLangObj
+      newLangObj.wordsList = { changed: false, value: newLangObj.wordsList }
 
-      state.languagesObjs.push(languageObj)  
+      if (!state.langTitlesList) {
+        state.langTitlesList = [action.payload.newLangTitle]
+        state.langObjs = [newLangObj]
+      } else {
+        state.langTitlesList.push(action.payload.newLangTitle)
+        state.langObjs.push(newLangObj)
+      }
     },
+    // setLanguageObj(state, action) {
+    //   const languageObj = action.payload
+    //   languageObj.wordsList = { changed: false, value: languageObj.wordsList }
+    //   if (languageObj.wordsPacks.length > 0) {
+    //     languageObj.wordsPacks = languageObj.wordsPacks.map((wp, idx) => {
+    //       return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
+    //     })
+    //   }
+
+    //   state.languagesObjs.push(languageObj)  
+    // },
+    setLanguageObj(state, action) {
+      const langObj = action.payload.langObj
+      langObj.wordsList = { changed: false, value: langObj.wordsList }
+      
+      state.langObjs.push(langObj) 
+    },
+
+
+    
     setWordsList(state, action) {
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.wordsList = { changed: false, value: action.payload.wordsList }

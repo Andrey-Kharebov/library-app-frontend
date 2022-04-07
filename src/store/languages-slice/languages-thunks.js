@@ -52,15 +52,49 @@ export const fetchLanguages = token => {
       dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
       dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'fetchLanguages', error: err.message || 'Something went wrong, please try again!' }))
+      dispatch(uiActions.setErrorObj({ type: 'fetchLanguages', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
 
+// export const createLanguage = (token, title) => {
+//   return async dispatch => {
+//     try {
+//       dispatch(uiActions.setIsLoading(true))
+//       const response = await fetch('http://localhost:9000/api/languages', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer ' + token
+//         },
+//         body: JSON.stringify({
+//           title: title
+//         })
+//       })
+
+//       const data = await response.json()
+
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Could not create a new language!')
+//       }
+
+//       const languagesData = data.newLanguageData
+      
+//       dispatch(languagesActions.setCreatedLanguage(languagesData))
+//       dispatch(uiActions.setIsLoading(false))
+//     } catch (err) {
+//       dispatch(uiActions.setIsLoading(false))
+//       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+//     }
+//   }
+// }
+
 export const createLanguage = (token, title) => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'createLanguage', isLoading: true }))
+
       const response = await fetch('http://localhost:9000/api/languages', {
         method: 'POST',
         headers: {
@@ -75,24 +109,54 @@ export const createLanguage = (token, title) => {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Could not create a new language!')
+        throw new Error(data.message || 'Could not create new language!')
       }
 
-      const languagesData = data.newLanguageData
-      
-      dispatch(languagesActions.setCreatedLanguage(languagesData))
-      dispatch(uiActions.setIsLoading(false))
+      const langData = data.langData
+      dispatch(languagesActions.setCreatedLanguage(langData))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'createLanguage', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
 
-export const fetchLanguagesById = (token, languageId) => {
+// export const fetchLanguagesById = (token, languageId) => {
+//   return async dispatch => {
+//     try {
+//       dispatch(uiActions.setIsLoading(true))
+//       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }`, {
+//         headers: {
+//           'Authorization': 'Bearer ' + token
+//         }
+//       })
+
+//       const data = await response.json()
+
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Could not fetch language!')
+//       }
+      
+//       const languageData = data.languageObj
+
+      
+//       dispatch(languagesActions.setLanguageObj(languageData))
+//       dispatch(uiActions.setIsLoading(false))
+//     } catch (err) {
+//       dispatch(uiActions.setIsLoading(false))
+//       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+//     }
+//   }
+// }
+
+export const fetchLanguageObj = (token, languageId) => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'fetchLanguageObj', isLoading: true }))
+
       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }`, {
         headers: {
           'Authorization': 'Bearer ' + token
@@ -102,20 +166,21 @@ export const fetchLanguagesById = (token, languageId) => {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Could not fetch language!')
+        throw new Error(data.message || 'Could not fetch a language!')
       }
-      
-      const languageData = data.languageObj
 
-      
-      dispatch(languagesActions.setLanguageObj(languageData))
-      dispatch(uiActions.setIsLoading(false))
+      const langData = data.langData
+      dispatch(languagesActions.setLanguageObj(langData))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'fetchLanguageObj', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
+
+
 
 export const saveWordsList = (token, languageId, wordsList) => {
   return async dispatch => {

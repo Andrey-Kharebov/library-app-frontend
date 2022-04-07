@@ -4,7 +4,9 @@ import { uiActions } from '../ui-slice/ui-slice'
 export const loginRequest = formData => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'loginRequest', isLoading: true }))
+
       const response = await fetch('http://localhost:9000/api/users/login', {
         method: 'POST',
         headers: {
@@ -20,11 +22,12 @@ export const loginRequest = formData => {
       }
       
 
-      dispatch(uiActions.setIsLoading(false))
       dispatch(authActions.login({ userId: responseData.userId, token: responseData.token }))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'loginRequest', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
@@ -32,7 +35,9 @@ export const loginRequest = formData => {
 export const signUpRequest = formData => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'signUpRequest', isLoading: true }))
+
       const response = await fetch('http://localhost:9000/api/users/signup', {
         method: 'POST',
         headers: {
@@ -47,11 +52,12 @@ export const signUpRequest = formData => {
         throw new Error(responseData.message || 'Could not sign you up!')
       }
 
-      dispatch(uiActions.setIsLoading(false))
       dispatch(authActions.login({ userId: responseData.userId, token: responseData.token }))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'signUpRequest', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }

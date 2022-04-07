@@ -5,6 +5,14 @@
   4. сделать common модалку
 
 // Commits
+
+45. Refactoring_v3
+  - rewrited fetchLanguages, createLanguage, fetchLanguageObj && slices for them 
+  - added loading & error logic for LanguageContentSection
+
+44. Refactoring_v2
+  - Changed loading & error logic for auth component 
+  
 43. Changed loading & error logic
 
 42. Refactoring

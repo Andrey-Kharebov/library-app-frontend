@@ -12,7 +12,7 @@ const uiSlice = createSlice({
     setLoadingObj(state, action) { // { type: 'fecthLanguages', isLoading: true }
       state.loadingObj = action.payload
     },
-    setErrorObj(state, action) { // { type: 'fecthLanguages', error: 'Something went wrong!' }
+    setErrorObj(state, action) { // { type: 'fecthLanguages', isError: true, error: 'Something went wrong!' }
       state.errorObj = action.payload
     }
   }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginRequest, signUpRequest } from '../../../store/auth-slice/auth-thunks'
-import { uiActions } from '../../../store/ui-slice/ui-slice'
 
 import PageWrapper from '../../common/wrappers/PageWrapper'
 import Loader from '../../common/Loader'
@@ -11,9 +10,9 @@ const Auth = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
-  const isLoading = useSelector(state => state.uiReducer.isLoading)
-  const error = useSelector(state => state.uiReducer.error)
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn)
+  const loadingObj = useSelector(state => state.uiReducer.loadingObj)
+  const errorObj = useSelector(state => state.uiReducer.errorObj)
 
   const initialState = { name: '', email: '', password: '' }
   const [formMode, setFormMode] = useState('login')
@@ -33,7 +32,6 @@ const Auth = () => {
     }
 
     setFormData(initialState)
-    dispatch(uiActions.setError(null))
   }
 
   const formDataChangeHandler = event => {
@@ -55,17 +53,10 @@ const Auth = () => {
     }
 
     setFormData(initialState)
-    dispatch(uiActions.setError(null))
   }
 
-  if (isLoading) {
-    return (
-      <PageWrapper title='Authorization' className='auth-page'>
-        <Loader />
-      </PageWrapper>
-    )
-  } 
-  
+  if (loadingObj && (loadingObj.type === 'loginRequest' || loadingObj.type === 'signUpRequest')) return <PageWrapper title='Authorization' className='auth-page'><Loader /></PageWrapper>
+
   return (
     <PageWrapper title='Authorization' className='auth-page'>
       <div className='auth-card'>
@@ -81,7 +72,8 @@ const Auth = () => {
           <button type='submit'>Submit</button>
         </form>
       </div>
-      { error && <div className='error-block'>{ error }</div> }
+      
+      { errorObj && (errorObj.type === 'loginRequest' || errorObj.type === 'signUpRequest') && <div className='error-block'>{ errorObj.error }</div> }
     </PageWrapper>
   )
 }
