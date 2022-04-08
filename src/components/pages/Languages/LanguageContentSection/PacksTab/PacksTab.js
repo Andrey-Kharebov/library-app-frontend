@@ -9,6 +9,7 @@ const PacksTab = ({ langTitleObj }) => {
 
   return (
     <SectionWrapper className='packs-tab'>
+      <CardsSide langTitleObj={ langTitleObj } />
       <WordsSide langTitleObj={ langTitleObj } />
     </SectionWrapper>
   )

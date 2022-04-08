@@ -6,6 +6,9 @@
 
 // Commits
 
+47. Refactoring_v5
+  - rewrited createWordsPack thunk && setCreatedWordsPack, changeActiveWordsPack slices
+
 46. Refactoring_v4
   - rewrited saveWordsList thunk && slices for it
   - added loading & error logic for wordsListBlock

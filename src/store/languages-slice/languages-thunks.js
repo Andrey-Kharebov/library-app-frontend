@@ -246,20 +246,53 @@ export const saveWordsList = (token, languageId, wordsList) => {
   }
 }
 
+// export const createWordsPack = (token, languageId, wordsList) => {
+//   return async dispatch => {
+//     try {
+//       dispatch(uiActions.setIsLoading(true))
+//       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsPack`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer ' + token
+//         },
+//         body: JSON.stringify({
+//           wordsList
+//         })
+//       })
 
+//       const data = await response.json()
+
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Could not create a new language!')
+//       }
+
+//       const languageData = data.languageData // { languageTitle{ _id, title }, wordsList, wordsPack }
+//       console.log(languageData.wordsPack)
+//       dispatch(languagesActions.setCreatedWordsPack(languageData))
+//       dispatch(uiActions.setIsLoading(false))
+//     } catch (err) {
+//       dispatch(uiActions.setIsLoading(false))
+//       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+//     }
+//   }
+// }
 
 
 export const createWordsPack = (token, languageId, wordsList) => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsPack`, {
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'createWordsPack', isLoading: true }))
+
+      const response = await fetch(`http://localhost:9000/api/languages/wordsPack`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify({
+          languageId,
           wordsList
         })
       })
@@ -270,16 +303,21 @@ export const createWordsPack = (token, languageId, wordsList) => {
         throw new Error(data.message || 'Could not create a new language!')
       }
 
-      const languageData = data.languageData // { languageTitle{ _id, title }, wordsList, wordsPack }
-      console.log(languageData.wordsPack)
-      dispatch(languagesActions.setCreatedWordsPack(languageData))
-      dispatch(uiActions.setIsLoading(false))
+      const langData = data.langData
+      dispatch(languagesActions.setCreatedWordsPack(langData))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'createWordsPack', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
+
+
+
+
+
 
 export const wordLevelUp = (token, wordsPackId, wordId) => {
   return async dispatch => {

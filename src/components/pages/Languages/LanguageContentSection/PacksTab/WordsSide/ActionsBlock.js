@@ -13,9 +13,13 @@ const ActionsBlock = ({ langTitleObj }) => {
     dispatch(saveWordsList(token, langObj._id, langObj.wordsList.value))
   }
 
+  const createWordsPackHandler = () => {
+    dispatch(createWordsPack(token, langObj._id, langObj.wordsList.value))
+  }
+
   return (  
     <div className='actions-block'>
-      <button>Create pack</button>
+      <button onClick={ createWordsPackHandler }>Create pack</button>
       <button disabled={ !langObj.wordsList.changed } onClick={ saveWordsListHandler }>Save</button>
     </div>
   )

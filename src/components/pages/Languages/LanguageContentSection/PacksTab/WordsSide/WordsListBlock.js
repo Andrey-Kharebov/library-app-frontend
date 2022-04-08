@@ -16,8 +16,8 @@ const WordsListBlock = ({ langTitleObj }) => {
     dispatch(languagesActions.changeWordsList({ langObjId: langObj._id, value: event.target.value }))
   }
 
-  if (loadingObj && (loadingObj.type === 'saveWordsList')) return <div className='words-list-block'><Loader /></div>
-  if (errorObj && errorObj.type === 'saveWordsList') return <div className='words-list-block'><Error error={ errorObj.error } /></div>
+  if (loadingObj && (loadingObj.type === 'saveWordsList' || loadingObj.type === 'createWordsPack')) return <div className='words-list-block'><Loader /></div>
+  if (errorObj && (errorObj.type === 'saveWordsList' || errorObj.type === 'createWordsPack')) return <div className='words-list-block'><Error error={ errorObj.error } /></div>
   
   return (
     <div className='words-list-block'>

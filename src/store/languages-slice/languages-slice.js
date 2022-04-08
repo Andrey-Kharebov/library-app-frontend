@@ -24,11 +24,19 @@ const languagesSlice = createSlice({
     //   }
     // },
     setFetchedLanguages(state, action) {
-      const firstLangObj = action.payload.langObjs[0]
-      firstLangObj.wordsList = { changed: false, value: firstLangObj.wordsList }
+      if (action.payload.langObjs.length > 0) {
+        const firstLangObj = action.payload.langObjs[0]
+        firstLangObj.wordsList = { changed: false, value: firstLangObj.wordsList }
 
+        if (firstLangObj.wordsPacks.length > 0) {
+          firstLangObj.wordsPacks = firstLangObj.wordsPacks.map((wp, idx) => {
+            return idx === 0 ? { ...wp, active: true } : { ...wp, active: false }
+          })
+        }
+
+        state.langObjs = [firstLangObj]
+      }
       state.langTitlesList = action.payload.langTitlesList
-      state.langObjs = [firstLangObj]
     },
     // setCreatedLanguage(state, action) {
     //   const newLanguageObj = action.payload.newLanguageObj
@@ -46,7 +54,7 @@ const languagesSlice = createSlice({
       const newLangObj = action.payload.newLangObj
       newLangObj.wordsList = { changed: false, value: newLangObj.wordsList }
 
-      if (!state.langTitlesList) {
+      if (!state.langTitlesList.length) {
         state.langTitlesList = [action.payload.newLangTitle]
         state.langObjs = [newLangObj]
       } else {
@@ -85,27 +93,40 @@ const languagesSlice = createSlice({
 
       state.langObjs.push(langObj) 
     },
+    // setCreatedWordsPack(state, action) {
+    //   console.log(action.payload)
+    //   let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+    //   languageObj.wordsList = { changed: false, value: action.payload.wordsList }
+    //   languageObj.words = [...action.payload.words]
+    //   if (languageObj.wordsPacks.length === 0) {
+    //     languageObj.wordsPacks.push({...action.payload.wordsPack, active: true })
+    //   } else {
+    //     languageObj.wordsPacks.push({...action.payload.wordsPack, active: false })
+    //   }
+    // },
     setCreatedWordsPack(state, action) {
-      console.log(action.payload)
-      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
-      languageObj.wordsList = { changed: false, value: action.payload.wordsList }
-      languageObj.words = [...action.payload.words]
-      if (languageObj.wordsPacks.length === 0) {
-        languageObj.wordsPacks.push({...action.payload.wordsPack, active: true })
+      let langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
+      langObj.wordsList = { changed: false, value: action.payload.wordsList }
+      langObj.words = [...action.payload.words]
+      if (langObj.wordsPacks.length === 0) {
+        langObj.wordsPacks.push({...action.payload.wordsPack, active: true })
       } else {
-        languageObj.wordsPacks.push({...action.payload.wordsPack, active: false })
+        langObj.wordsPacks.push({...action.payload.wordsPack, active: false })
       }
     },
-    setWordsPack(state, action) {
-      const languageObj = state.languagesObjs.find(l => l._id === action.payload.wordsPack.language)
+    // setWordsPack(state, action) {
+    //   const languageObj = state.languagesObjs.find(l => l._id === action.payload.wordsPack.language)
       
-      languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
-        if (wp._id === action.payload.wordsPack._id) {
-          return {...action.payload.wordsPack, active: true}
-        } else {
-          return {...wp}
-        }
-      })
+    //   languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
+    //     if (wp._id === action.payload.wordsPack._id) {
+    //       return {...action.payload.wordsPack, active: true}
+    //     } else {
+    //       return {...wp}
+    //     }
+    //   })
+    // },
+    setWordsPack(state, action) {
+      console.log(action.payload)
     },
     finishPack(state, action) {
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
@@ -115,6 +136,9 @@ const languagesSlice = createSlice({
         languageObj.wordsPacks[0].active = true
       }
     },
+
+
+    
     setSuggestedWords(state, action) {
       console.log(action.payload)
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
@@ -149,13 +173,31 @@ const languagesSlice = createSlice({
       langObj.wordsList.changed = true 
       langObj.wordsList.value = action.payload.value
     },
+    // changeActiveWordsPack(state, action) {
+    //   const wordsPackId = action.payload.wordsPackId
+    //   const languageObj = state.languagesObjs.find(l => l._id === action.payload.languageObjId)
+    //   languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
+    //     return wp._id === wordsPackId ? { ...wp, active: true, } : { ...wp, active: false }
+    //   })
+    // },
     changeActiveWordsPack(state, action) {
       const wordsPackId = action.payload.wordsPackId
-      const languageObj = state.languagesObjs.find(l => l._id === action.payload.languageObjId)
-      languageObj.wordsPacks = languageObj.wordsPacks.map(wp => {
+      const langObj = state.langObjs.find(l => l._id === action.payload.langObjId)
+      langObj.wordsPacks = langObj.wordsPacks.map(wp => {
         return wp._id === wordsPackId ? { ...wp, active: true, } : { ...wp, active: false }
       })
     },
+
+
+
+
+
+
+
+
+
+
+
     changeWordObj(state, action) {
       const languageObj = state.languagesObjs.find(l => l._id === action.payload.language)
 
