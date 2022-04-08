@@ -6,6 +6,9 @@
 
 // Commits
 
+48. Refactoring_v6
+  - rewrited wordsCard func.
+
 47. Refactoring_v5
   - rewrited createWordsPack thunk && setCreatedWordsPack, changeActiveWordsPack slices
 
