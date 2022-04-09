@@ -509,10 +509,43 @@ export const finishPack = (token, wordsPackId, words) => {
   }
 }
 
+// export const wordsSuggestion = (token, languageId, word) => {
+//   return async dispatch => {
+//     try {
+//       dispatch(uiActions.setIsLoading(true))
+//       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsSuggestion`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': 'Bearer ' + token
+//         },
+//         body: JSON.stringify({
+//           word
+//         })
+//       })
+
+//       const data = await response.json()
+
+//       if (!response.ok) {
+//         throw new Error(data.message || 'Could not create a new language!')
+//       }
+
+//       const languageData = data.languageData // { languageTitle{ _id, title }, words }
+//       dispatch(languagesActions.setSuggestedWords(languageData))
+//       dispatch(uiActions.setIsLoading(false))
+//     } catch (err) {
+//       dispatch(uiActions.setIsLoading(false))
+//       dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+//     }
+//   }
+// }
+
 export const wordsSuggestion = (token, languageId, word) => {
   return async dispatch => {
     try {
-      dispatch(uiActions.setIsLoading(true))
+      dispatch(uiActions.setErrorObj(null))
+      dispatch(uiActions.setLoadingObj({ type: 'wordsSuggestion', isLoading: true }))
+
       const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsSuggestion`, {
         method: 'POST',
         headers: {
@@ -527,18 +560,21 @@ export const wordsSuggestion = (token, languageId, word) => {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Could not create a new language!')
-      }
+        throw new Error(data.message || 'Could not fetch suggested words!')
+      } 
 
-      const languageData = data.languageData // { languageTitle{ _id, title }, words }
-      dispatch(languagesActions.setSuggestedWords(languageData))
-      dispatch(uiActions.setIsLoading(false))
+      const langData = data.langData
+      dispatch(languagesActions.setSuggestedWords(langData))
+
+      dispatch(uiActions.setLoadingObj(null))
     } catch (err) {
-      dispatch(uiActions.setIsLoading(false))
-      dispatch(uiActions.setError(err.message || 'Something went wrong, please try again!'))
+      dispatch(uiActions.setLoadingObj(null))
+      dispatch(uiActions.setErrorObj({ type: 'wordsSuggestion', isError: true, error: err.message || 'Something went wrong, please try again!' }))
     }
   }
 }
+
+
 
 export const getWords = (token, languageId, wordsId) => {
   return async dispatch => {

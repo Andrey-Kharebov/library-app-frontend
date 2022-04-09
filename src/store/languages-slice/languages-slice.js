@@ -27,6 +27,7 @@ const languagesSlice = createSlice({
       if (action.payload.langObjs.length > 0) {
         const firstLangObj = action.payload.langObjs[0]
         firstLangObj.wordsList = { changed: false, value: firstLangObj.wordsList }
+        firstLangObj.suggestedWords = []
 
         if (firstLangObj.wordsPacks.length > 0) {
           firstLangObj.wordsPacks = firstLangObj.wordsPacks.map((wp, idx) => {
@@ -53,6 +54,7 @@ const languagesSlice = createSlice({
     setCreatedLanguage(state, action) {
       const newLangObj = action.payload.newLangObj
       newLangObj.wordsList = { changed: false, value: newLangObj.wordsList }
+      newLangObj.suggestedWords = []
 
       if (!state.langTitlesList.length) {
         state.langTitlesList = [action.payload.newLangTitle]
@@ -76,7 +78,8 @@ const languagesSlice = createSlice({
     setLanguageObj(state, action) {
       const langObj = action.payload.langObj
       langObj.wordsList = { changed: false, value: langObj.wordsList }
-      
+      langObj.suggestedWords = []
+
       state.langObjs.push(langObj) 
     },
 
@@ -151,15 +154,17 @@ const languagesSlice = createSlice({
         langObj.wordsPacks[0].active = true
       }
     },
-
-
-    
+    // setSuggestedWords(state, action) {
+    //   console.log(action.payload)
+    //   let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+    //   console.log(current(languageObj))
+    //   languageObj.suggestedWords = action.payload.words 
+    // },
     setSuggestedWords(state, action) {
-      console.log(action.payload)
-      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
-      console.log(current(languageObj))
-      languageObj.suggestedWords = action.payload.words 
+      let langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
+      langObj.suggestedWords = action.payload.words 
     },
+
     setWordsObjs(state, action) {
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.wordsObjs = action.payload.words
@@ -202,7 +207,10 @@ const languagesSlice = createSlice({
         return wp._id === wordsPackId ? { ...wp, active: true, } : { ...wp, active: false }
       })
     },
-
+    resetSuggestedWords(state, action) {
+      let langObj = state.langObjs.find(l => l._id === action.payload._id)
+      langObj.suggestedWords = []
+    },
 
 
 

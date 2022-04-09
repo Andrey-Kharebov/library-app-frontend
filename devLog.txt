@@ -6,6 +6,9 @@
 
 // Commits
 
+49. Refactoring_v7
+  - rewrited words suggestion func.
+
 48. Refactoring_v6
   - rewrited wordsCard func.
 
