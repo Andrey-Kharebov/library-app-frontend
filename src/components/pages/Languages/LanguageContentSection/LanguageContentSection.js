@@ -30,7 +30,7 @@ const LanguageContentSection = ({ langTitleObj }) => {
 
   const tabs = {  
     0: langObj && <PacksTab langTitleObj={ langTitleObj } />,
-    1: <WordsTab />,
+    1: langObj && <WordsTab langTitleObj={ langTitleObj } />,
     2: <TextsTab />
   }
 

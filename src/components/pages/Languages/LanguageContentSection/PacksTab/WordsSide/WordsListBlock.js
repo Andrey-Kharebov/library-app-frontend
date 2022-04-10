@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { languagesActions } from '../../../../../../store/languages-slice/languages-slice'
 
-import Loader from '../../../../../common/Loader'
+// import Loader from '../../../../../common/Loader'
 import Error from '../../../../../common/Error'
 
 const WordsListBlock = ({ langTitleObj }) => {
@@ -16,7 +16,8 @@ const WordsListBlock = ({ langTitleObj }) => {
     dispatch(languagesActions.changeWordsList({ langObjId: langObj._id, value: event.target.value }))
   }
 
-  if (loadingObj && (loadingObj.type === 'saveWordsList' || loadingObj.type === 'createWordsPack')) return <div className='words-list-block'><Loader /></div>
+  // disabled because it force textarea scrolled to up after rerender (problem when add a suggested word)
+  // if (loadingObj && (loadingObj.type === 'saveWordsList' || loadingObj.type === 'createWordsPack')) return <div className='words-list-block'><Loader /></div>
   if (errorObj && (errorObj.type === 'saveWordsList' || errorObj.type === 'createWordsPack')) return <div className='words-list-block'><Error error={ errorObj.error } /></div>
   
   return (

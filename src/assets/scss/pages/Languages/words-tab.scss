@@ -4,54 +4,59 @@
 
   @import '../../common/search-bar.scss';
 
-  .words-block {
+  .words-tab-content {
     margin-top: 16px;
-    height: 80%;
+    height: calc(100% - 70px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    ul {
-      height: 100%;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-
-      li {
-        margin-top: 16px;
+    .words-block {
+      ul {
+        height: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
         display: flex;
-        justify-content: space-between;
-
-        &:first-child {
-          margin-top: 0;
-        }
-
-        & > input {
-          width: 100%;
-          background: none;
-          border: none;
-          color: $grey-text;
-          background: $bg-color-lvl1;
-          border-radius: 4px;
-          box-sizing: border-box;
-          padding: 10px 16px;
-          
-          &:focus {
-            outline: none;
+        flex-direction: column;
+  
+        li {
+          margin-top: 16px;
+          display: flex;
+          justify-content: space-between;
+  
+          &:first-child {
+            margin-top: 0;
+          }
+  
+          & > input {
+            width: 100%;
+            background: none;
+            border: none;
+            color: $grey-text;
+            background: $bg-color-lvl1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 10px 16px;
+            
+            &:focus {
+              outline: none;
+            }
+          }
+  
+          & > button {
+            margin-left: 16px;
+            
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
-
-        & > button {
-          margin-left: 16px;
-          
-          &:hover {
-            cursor: pointer;
-          }
-        }
+  
       }
-
+      
     }
-    
+  
+    @import '../../common/pagination.scss';
   }
-
-  @import '../../common/pagination.scss';
 }

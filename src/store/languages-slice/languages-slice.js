@@ -28,6 +28,8 @@ const languagesSlice = createSlice({
         const firstLangObj = action.payload.langObjs[0]
         firstLangObj.wordsList = { changed: false, value: firstLangObj.wordsList }
         firstLangObj.suggestedWords = []
+        firstLangObj.searchedWords = []
+        
 
         if (firstLangObj.wordsPacks.length > 0) {
           firstLangObj.wordsPacks = firstLangObj.wordsPacks.map((wp, idx) => {
@@ -55,6 +57,7 @@ const languagesSlice = createSlice({
       const newLangObj = action.payload.newLangObj
       newLangObj.wordsList = { changed: false, value: newLangObj.wordsList }
       newLangObj.suggestedWords = []
+      newLangObj.searchedWords = []
 
       if (!state.langTitlesList.length) {
         state.langTitlesList = [action.payload.newLangTitle]
@@ -79,6 +82,7 @@ const languagesSlice = createSlice({
       const langObj = action.payload.langObj
       langObj.wordsList = { changed: false, value: langObj.wordsList }
       langObj.suggestedWords = []
+      langObj.searchedWords = []
 
       state.langObjs.push(langObj) 
     },
@@ -92,7 +96,7 @@ const languagesSlice = createSlice({
     setWordsList(state, action) {
       const langObj = state.langObjs.find(lo => lo._id === action.payload.langTitle._id)
       langObj.wordsList = { changed: false, value: action.payload.wordsList }
-      // langObj.suggestedWords = []
+      langObj.suggestedWords = []
 
       state.langObjs.push(langObj) 
     },
@@ -164,16 +168,18 @@ const languagesSlice = createSlice({
       let langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
       langObj.suggestedWords = action.payload.words 
     },
-
+    setSearchedWords(state, action) {
+      let langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
+      langObj.searchedWords = action.payload.words 
+    },
     setWordsObjs(state, action) {
       let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
       languageObj.wordsObjs = action.payload.words
     },
     setSavedWord(state, action) {
-      console.log(action.payload)
-      let languageObj = state.languagesObjs.find(l => l._id === action.payload.languageTitle._id)
+      let langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
 
-      languageObj.wordsObjs = languageObj.wordsObjs.map(w => {
+      langObj.searchedWords = langObj.searchedWords.map(w => {
         if (w._id === action.payload.word._id) {
           return { ...action.payload.word, changed: false }
         } else {
@@ -219,12 +225,10 @@ const languagesSlice = createSlice({
 
 
 
-
-
     changeWordObj(state, action) {
-      const languageObj = state.languagesObjs.find(l => l._id === action.payload.language)
+      const langObj = state.langObjs.find(l => l._id === action.payload.language)
 
-      languageObj.wordsObjs = languageObj.wordsObjs.map(w => {
+      langObj.searchedWords = langObj.searchedWords.map(w => {
         if (w._id === action.payload._id) {
           return { ...action.payload, changed: true }
         } else {
@@ -233,12 +237,11 @@ const languagesSlice = createSlice({
       })
     },
     deleteWordObj(state, action) {
-      console.log(action.payload)
-      const languageObj = state.languagesObjs.find(l => l._id === action.payload.word.language._id)
-      if (languageObj.suggestedWords) {
-        languageObj.suggestedWords = languageObj.suggestedWords.filter(w => w._id !== action.payload.word._id)
+      const langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
+      if (langObj.searchedWords) {
+        langObj.searchedWords = langObj.searchedWords.filter(w => w._id !== action.payload.word._id)
       }
-      languageObj.words = [...action.payload.word.language.words]
+      langObj.words = [...action.payload.word.language.words]
     }
   }
 })

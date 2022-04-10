@@ -22,19 +22,17 @@ const WordsSuggestionsBlock = ({ langTitleObj }) => {
   const errorObj = useSelector(state => state.uiReducer.errorObj)
 
   const [prevWordsList] = useState(langObj.wordsList.value)
-  const [lastStoreWord] = useState(lastWordOfWordsList(langObj.wordsList.value))
+  const [lastStoreWord, setLastStoreWord] = useState(lastWordOfWordsList(langObj.wordsList.value))
 
   let lastWord = lastWordOfWordsList(langObj.wordsList.value)
 
   useEffect(() => {
-    if (langObj.suggestedWords.length > 0 && lastWord === lastStoreWord) {
-      dispatch(languagesActions.resetSuggestedWords(langTitleObj))
-    }
-  }, [dispatch, lastWord, lastStoreWord, langTitleObj, langObj.suggestedWords])
+    setLastStoreWord(lastWordOfWordsList(langObj.wordsList.value))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [langTitleObj])
 
   useEffect(() => {
     const timeTillRequest = setTimeout(() => {
-      console.log(lastWord.length)
       if (lastWord !== lastStoreWord) {
         dispatch(wordsSuggestion(token, langTitleObj._id, lastWord))
       }
@@ -46,7 +44,8 @@ const WordsSuggestionsBlock = ({ langTitleObj }) => {
   }, [dispatch, lastWord, lastStoreWord, token, langTitleObj._id])
 
   const addSuggestedWordHandler = word => {
-    let updatedWordsList = prevWordsList + `\n${ word.word } - ${ word.translation } // ${ word.example }`
+    let clearedWordsList = langObj.wordsList.value.replace(/\r?\n?[^\r\n]*$/, '')
+    let updatedWordsList = clearedWordsList + `\n${ word.word } - ${ word.translation } // ${ word.example }`
     dispatch(saveWordsList(token, langTitleObj._id, updatedWordsList))
   } 
 

@@ -6,6 +6,9 @@
 
 // Commits
 
+50. Refactoring_v8
+  - rewrited words search func.
+
 49. Refactoring_v7
   - rewrited words suggestion func.
 
