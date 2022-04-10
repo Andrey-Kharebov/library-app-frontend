@@ -6,7 +6,6 @@ import WordsSide from './WordsSide/WordsSide'
 
 
 const PacksTab = ({ langTitleObj }) => {
-
   return (
     <SectionWrapper className='packs-tab'>
       <CardsSide langTitleObj={ langTitleObj } />
@@ -14,13 +13,5 @@ const PacksTab = ({ langTitleObj }) => {
     </SectionWrapper>
   )
 }
-// const PacksTab = ({ languageTitleObj }) => {
-//   return (
-//     <SectionWrapper className='packs-tab'>
-//       <CardsSide languageTitleObj={ languageTitleObj } />
-//       <WordsSide languageTitleObj={ languageTitleObj } />
-//     </SectionWrapper>
-//   )
-// }
 
 export default PacksTab

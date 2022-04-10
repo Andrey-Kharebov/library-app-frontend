@@ -9,7 +9,7 @@ const WordsListBlock = ({ langTitleObj }) => {
   const dispatch = useDispatch()
 
   const langObj = useSelector(state => state.languagesReducer.langObjs.find(lo => lo._id === langTitleObj._id))
-  const loadingObj = useSelector(state => state.uiReducer.loadingObj)
+  // const loadingObj = useSelector(state => state.uiReducer.loadingObj)
   const errorObj = useSelector(state => state.uiReducer.errorObj)
 
   const changeWordsListHandler = event => {
@@ -26,20 +26,5 @@ const WordsListBlock = ({ langTitleObj }) => {
     </div>
   )
 }
-
-// const WordsListBlock = ({ languageTitleObj }) => {
-//   const dispatch = useDispatch()
-//   const languageObj = useSelector(state => state.languagesReducer.languagesObjs).find(lo => lo._id === languageTitleObj._id)
-
-//   const changeWordsListHandler = event => {
-//     dispatch(languagesActions.changeWordsList({ languageObjId: languageObj._id, value: event.target.value }))
-//   }
-
-//   return (
-//     <div className='words-list-block'>
-//       <textarea value={ languageObj && languageObj.wordsList.value } onChange={ changeWordsListHandler } />
-//     </div>
-//   )
-// }
 
 export default WordsListBlock

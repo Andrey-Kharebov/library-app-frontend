@@ -14,14 +14,4 @@ const WordsSide = ({ langTitleObj }) => {
   )
 }
 
-// const WordsSide = ({ languageTitleObj }) => {
-//   return (
-//     <div className='words-side'>
-//       <ActionsBlock languageTitleObj={ languageTitleObj } />
-//       <WordsListBlock languageTitleObj={ languageTitleObj } />
-//       <WordsSuggestionsBlock languageTitleObj={ languageTitleObj } />
-//     </div>
-//   )
-// }
-
 export default WordsSide

@@ -11,6 +11,7 @@ import Error from '../../common/Error'
 
 const LanguagesPage = () => {
   const dispatch = useDispatch()
+  
   const token = useSelector(state => state.authReducer.token)
   const langTitlesList = useSelector(state => state.languagesReducer.langTitlesList)
   const loadingObj = useSelector(state => state.uiReducer.loadingObj)

@@ -7,7 +7,6 @@ import WordsPacksBlock from './WordsPacksBlock'
 const CardsSide = ({ langTitleObj }) => {  
   const langObj = useSelector(state => state.languagesReducer.langObjs.find(lo => lo._id === langTitleObj._id))
   const wordsPack = langObj.wordsPacks.find(wp => wp.active)
-
  
   return (
     <div className='cards-side'>
