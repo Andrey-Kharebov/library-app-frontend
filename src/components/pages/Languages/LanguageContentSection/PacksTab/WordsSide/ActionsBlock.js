@@ -19,6 +19,7 @@ const ActionsBlock = ({ langTitleObj }) => {
   return (  
     <div className='actions-block'>
       <button onClick={ createWordsPackHandler }>Create pack</button>
+      <span>format: a(to) feast - приздник, пир пироваать // let's prepare a feast and go somewhere</span>
       <button disabled={ !langObj.wordsList.changed } onClick={ saveWordsListHandler }>Save</button>
     </div>
   )

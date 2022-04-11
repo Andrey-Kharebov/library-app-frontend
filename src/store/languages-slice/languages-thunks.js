@@ -1,404 +1,172 @@
 import { languagesActions } from './languages-slice'
 import { uiActions } from '../ui-slice/ui-slice'
 
+const baseUrl = `http://localhost:9000/`
+
+// dispatch
+// type for loading & error obj's
+// data for http
+// error message 
+// reducer's function
+const sendRequest = async (dispatch, requestType, instanceData, responseError, sliceFunction) => {
+  try {
+   dispatch(uiActions.setErrorObj(null))
+   dispatch(uiActions.setLoadingObj({ type: requestType, isLoading: true }))
+
+   const response = await fetch(`${ baseUrl }${ instanceData.endpoint }`, {
+     method: instanceData.method,
+     headers: {
+       'Content-Type': 'application/json',
+       'Authorization': 'Bearer ' + instanceData.token
+     },
+     body: instanceData.body && JSON.stringify({ ...instanceData.body })
+   })
+
+   const data = await response.json()
+
+   if (!response.ok) {
+     throw new Error(data.message || responseError)
+   }
+
+   const langData = data.langData
+   dispatch(languagesActions[sliceFunction](langData))
+
+   dispatch(uiActions.setLoadingObj(null))
+  } catch (err) {
+   dispatch(uiActions.setLoadingObj(null))
+   dispatch(uiActions.setErrorObj({ type: requestType, isError: true, error: err.message || 'Something went wrong, please try again!' }))
+  }
+}
+
 // Languages
 export const fetchLanguages = token => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'fetchLanguages', isLoading: true }))
+  const instanceData = {
+    method: 'GET',
+    endpoint: `api/languages`,
+    token
+  } 
 
-      const response = await fetch('http://localhost:9000/api/languages', {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not fetch languages list!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setFetchedLanguages(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'fetchLanguages', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
-  }
+  return async dispatch => await sendRequest(dispatch, 'fetchLanguages', instanceData, 'Could not fetch languages list!', 'setFetchedLanguages')
 }
 
 export const createLanguage = (token, title) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'createLanguage', isLoading: true }))
-
-      const response = await fetch('http://localhost:9000/api/languages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          title: title
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not create new language!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setCreatedLanguage(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'createLanguage', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
+  const instanceData = {
+    method: 'POST',
+    endpoint: `api/languages`,
+    token,
+    body: { title }
   }
+
+  return async dispatch => await sendRequest(dispatch, 'createLanguage', instanceData, 'Could not create new language!', 'setCreatedLanguage') 
 }
 
 export const fetchLanguageObj = (token, languageId) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'fetchLanguageObj', isLoading: true }))
-
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }`, {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not fetch a language!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setLanguageObj(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'fetchLanguageObj', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
+  const instanceData = {
+    method: 'GET',
+    endpoint: `api/languages/${ languageId }`,
+    token
   }
+
+  return async dispatch => await sendRequest(dispatch, 'fetchLanguageObj', instanceData, 'Could not fetch a language!', 'setLanguageObj') 
 }
 
 // WordsList & Packs
 export const saveWordsList = (token, languageId, wordsList) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'saveWordsList', isLoading: true }))
+  const instanceData = {
+    method: 'PATCH',
+    endpoint: `api/languages/${ languageId }/wordsList`,
+    token,
+    body: { wordsList }
+  } 
 
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/wordsList`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          wordsList: wordsList
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not create new language!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setWordsList(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'saveWordsList', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
-  }
+  return async dispatch => await sendRequest(dispatch, 'saveWordsList', instanceData, 'Could not create new language!', 'setWordsList')
 }
 
 export const createWordsPack = (token, languageId, wordsList) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'createWordsPack', isLoading: true }))
+  const instanceData = {
+    method: 'POST',
+    endpoint: `api/languages/wordsPack`,
+    token,
+    body: { languageId, wordsList }
+  } 
 
-      const response = await fetch(`http://localhost:9000/api/languages/wordsPack`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          languageId,
-          wordsList
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not create a new language!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setCreatedWordsPack(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'createWordsPack', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
-  }
+  return async dispatch => await sendRequest(dispatch, 'createWordsPack', instanceData, 'Could not create new words pack!', 'setCreatedWordsPack')
 }
 
 export const wordLevelUp = (token, wordsPackId, wordId) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'changeWordLevel', isLoading: true }))
+  const instanceData = {
+    method: 'PATCH',
+    endpoint: `api/languages/${ wordsPackId }/wordLevelUp`,
+    token,
+    body: { wordsPackId, wordId }
+  } 
 
-      const response = await fetch(`http://localhost:9000/api/languages/${ wordsPackId }/wordLevelUp`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          wordId
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not up the word\'s level!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setWordsPack(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'changeWordLevel', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
-  }
+  return async dispatch => await sendRequest(dispatch, 'changeWordLevel', instanceData, 'Could not up a word\'s level!', 'setWordsPack')  
 }
 
 export const wordLevelDown = (token, wordsPackId, wordId) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'changeWordLevel', isLoading: true }))
+  const instanceData = {
+    method: 'PATCH',
+    endpoint: `api/languages/${ wordsPackId }/wordLevelDown`,
+    token,
+    body: { wordsPackId, wordId }
+  } 
 
-      const response = await fetch(`http://localhost:9000/api/languages/${ wordsPackId }/wordLevelDown`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          wordId
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not up the word\'s level!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setWordsPack(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'changeWordLevel', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
-  }
+  return async dispatch => await sendRequest(dispatch, 'changeWordLevel', instanceData, 'Could not down a word\'s level!', 'setWordsPack') 
 }
 
 export const finishPack = (token, wordsPackId, words) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'finishPack', isLoading: true }))
+  const instanceData = {
+    method: 'POST',
+    endpoint: `api/languages/${ wordsPackId }/finish`,
+    token,
+    body: { wordsPackId, words }
+  } 
 
-      const response = await fetch(`http://localhost:9000/api/languages/${ wordsPackId }/finish`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          words
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not complete the word\'s pack!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.finishPack(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'finishPack', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
-  }
+  return async dispatch => await sendRequest(dispatch, 'finishPack', instanceData, 'Could not complete a word\'s pack!', 'finishPack')  
 }
 
 export const wordsSuggestion = (token, languageId, word) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'wordsSuggestion', isLoading: true }))
-
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/searchWords`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          word
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not fetch suggested words!')
-      } 
-
-      const langData = data.langData
-      dispatch(languagesActions.setSuggestedWords(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'wordsSuggestion', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
+  const instanceData = {
+    method: 'POST',
+    endpoint: `api/languages/${ languageId }/searchWords`,
+    token,
+    body: { languageId, word }
   }
+
+  return async dispatch => await sendRequest(dispatch, 'wordsSuggestion', instanceData, 'Could not fetch suggested words!', 'setSuggestedWords') 
 }
 
 // Words
 export const searchWords = (token, languageId, word) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'searchWords', isLoading: true }))
-
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/searchWords`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          word
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not fetch searched words!')
-      } 
-
-      const langData = data.langData
-      dispatch(languagesActions.setSearchedWords(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'searchWords', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
+  const instanceData = {
+    method: 'POST',
+    endpoint: `api/languages/${ languageId }/searchWords`,
+    token,
+    body: { languageId, word }
   }
+
+  return async dispatch => await sendRequest(dispatch, 'searchWords', instanceData, 'Could not fetch searched words!', 'setSearchedWords') 
 }
 
 export const saveWord = (token, languageId, word) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'saveWord', isLoading: true }))
-
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/words`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          word
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not save a word!')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setSavedWord(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'saveWord', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
+  const instanceData = {
+    method: 'PATCH',
+    endpoint: `api/languages/${ languageId }/words`,
+    token,
+    body: { languageId, word }
   }
+
+  return async dispatch => await sendRequest(dispatch, 'saveWord', instanceData, 'Could not save a word!', 'setSavedWord')
 }
 
 export const deleteWord = (token, languageId, word) => {
-  return async dispatch => {
-    try {
-      dispatch(uiActions.setErrorObj(null))
-      dispatch(uiActions.setLoadingObj({ type: 'deleteWord', isLoading: true }))
-
-      const response = await fetch(`http://localhost:9000/api/languages/${ languageId }/words`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({
-          word
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not delete a word')
-      }
-
-      const langData = data.langData
-      dispatch(languagesActions.setDeletedWord(langData))
-
-      dispatch(uiActions.setLoadingObj(null))
-    } catch (err) {
-      dispatch(uiActions.setLoadingObj(null))
-      dispatch(uiActions.setErrorObj({ type: 'deleteWord', isError: true, error: err.message || 'Something went wrong, please try again!' }))
-    }
+  const instanceData = {
+    method: 'DELETE',
+    endpoint: `api/languages/${ languageId }/words`,
+    token,
+    body: { languageId, word }
   }
+
+  return async dispatch => await sendRequest(dispatch, 'deleteWord', instanceData, 'Could not delete a word!', 'setDeletedWord')
 }

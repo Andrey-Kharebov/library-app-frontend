@@ -6,6 +6,9 @@
 
 // Commits
 
+52. Added sendRequest function in language-thunks.js
+  - added format example in actions block 
+  
 51. Removed comments
 
 50. Refactoring_v8
