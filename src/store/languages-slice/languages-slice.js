@@ -114,14 +114,24 @@ const languagesSlice = createSlice({
       languageObj.wordsObjs = action.payload.words
     },
     setSavedWord(state, action) {
+      console.log(action.payload)
       let langObj = state.langObjs.find(l => l._id === action.payload.langTitle._id)
-
+      
+      console.log(current(langObj))
       langObj.searchedWords = langObj.searchedWords.map(w => {
-        if (w._id === action.payload.word._id) {
-          return { ...action.payload.word, changed: false }
-        } else {
-          return { ...w }
-        }
+        return w._id === action.payload.word._id
+          ? { ...action.payload.word, changed: false }
+          : { ...w } 
+      })
+      langObj.suggestedWords = []
+      langObj.wordsPacks = langObj.wordsPacks.map(wp => {
+        let packForReplace = action.payload.wordsPacks.find(nwp => nwp._id === wp._id)
+
+        return packForReplace
+          ? wp.active 
+            ? { ...packForReplace, active: true }
+            : { ...packForReplace, active: false }            
+          : wp
       })
     },
     setDeletedWord(state, action) {

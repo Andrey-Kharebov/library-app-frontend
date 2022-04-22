@@ -6,6 +6,8 @@
 
 // Commits
 
+53. Added unpdating wordsPacks after word updating 
+
 52. Added sendRequest function in language-thunks.js
   - added format example in actions block 
   
